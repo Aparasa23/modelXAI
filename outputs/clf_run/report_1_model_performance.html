@@ -1,0 +1,1272 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Report #1 – Model Performance Evaluation (Classification)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    h1 { margin-bottom: 8px; }
+    h2 { margin-top: 22px; }
+    .section { margin: 14px 0; }
+    .code { background: #f6f6f6; padding: 10px; border-radius: 8px; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
+    th { background: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Report #1 – Model Performance Evaluation (Classification)</h1>
+  <h2>Classification Report</h2>
+<div class='section'><pre class='code'>              precision    recall  f1-score   support
+
+           0       0.97      0.90      0.94        42
+           1       0.95      0.99      0.97        72
+
+    accuracy                           0.96       114
+   macro avg       0.96      0.95      0.95       114
+weighted avg       0.96      0.96      0.96       114
+</pre></div>
+<h2>Core Classification Metrics</h2>
+<div class='section'><pre class='code'>Accuracy: 0.956140
+MCC: 0.905824
+Precision@0.5: 0.946667
+Recall@0.5: 0.986111
+F1@0.5: 0.965986
+AU-ROC: 0.990079
+Log Loss: 0.120615
+Brier Score: 0.036658
+Hamming Loss@0.5: 0.043860
+Jaccard Loss@0.5: 0.065789
+Zero-One Loss@0.5: 0.043860</pre></div>
+<h2>Dynamic Threshold Analysis (Interactive)</h2>
+<div class='section'>
+    <div class="section">
+      <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="thrFig" class="plotly-graph-div" style="height:450px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("thrFig")) {                    Plotly.newPlot(                        "thrFig",                        [{"mode":"lines","name":"accuracy","x":{"dtype":"f8","bdata":"exSuR+F6hD97FK5H4XqUP7gehetRuJ4\u002fexSuR+F6pD+amZmZmZmpP7gehetRuK4\u002f7FG4HoXrsT97FK5H4Xq0PwrXo3A9Crc\u002fmpmZmZmZuT8pXI\u002fC9Si8P7gehetRuL4\u002fpHA9CtejwD\u002fsUbgehevBPzMzMzMzM8M\u002fexSuR+F6xD\u002fD9Shcj8LFPwrXo3A9Csc\u002fUrgehetRyD+amZmZmZnJP+F6FK5H4co\u002fKVyPwvUozD9xPQrXo3DNP7gehetRuM4\u002fAAAAAAAA0D+kcD0K16PQP0jhehSuR9E\u002f7FG4HoXr0T+PwvUoXI\u002fSPzMzMzMzM9M\u002f16NwPQrX0z97FK5H4XrUPx+F61G4HtU\u002fw\u002fUoXI\u002fC1T9mZmZmZmbWPwrXo3A9Ctc\u002frkfhehSu1z9SuB6F61HYP\u002fYoXI\u002fC9dg\u002fmpmZmZmZ2T89CtejcD3aP+F6FK5H4do\u002fhetRuB6F2z8pXI\u002fC9SjcP83MzMzMzNw\u002fcT0K16Nw3T8UrkfhehTeP7gehetRuN4\u002fXI\u002fC9Shc3z8AAAAAAADgP1K4HoXrUeA\u002fpHA9Ctej4D\u002f2KFyPwvXgP0jhehSuR+E\u002fmpmZmZmZ4T\u002fsUbgehevhPz0K16NwPeI\u002fj8L1KFyP4j\u002fhehSuR+HiPzMzMzMzM+M\u002fhetRuB6F4z\u002fXo3A9CtfjPylcj8L1KOQ\u002fexSuR+F65D\u002fNzMzMzMzkPx+F61G4HuU\u002fcT0K16Nw5T\u002fD9Shcj8LlPxSuR+F6FOY\u002fZmZmZmZm5j+4HoXrUbjmPwrXo3A9Cuc\u002fXI\u002fC9Shc5z+uR+F6FK7nPwAAAAAAAOg\u002fUrgehetR6D+kcD0K16PoP\u002fYoXI\u002fC9eg\u002fSOF6FK5H6T+amZmZmZnpP+xRuB6F6+k\u002fPQrXo3A96j+PwvUoXI\u002fqP+F6FK5H4eo\u002fMzMzMzMz6z+F61G4HoXrP9ejcD0K1+s\u002fKVyPwvUo7D97FK5H4XrsP83MzMzMzOw\u002fH4XrUbge7T9xPQrXo3DtP8P1KFyPwu0\u002fFK5H4XoU7j9mZmZmZmbuP7gehetRuO4\u002fCtejcD0K7z9cj8L1KFzvP65H4XoUru8\u002f"},"y":{"dtype":"f8","bdata":"kOA+gvsI7j8N5TWU11DuPw3lNZTXUO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fCe4juI\u002fg7j8J7iO4j+DuPwnuI7iP4O4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juP4vpLKazmO4\u002fi+ksprOY7j+L6Syms5juPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j+Q4D6C+wjuPxLcR3Afwe0\u002fEtxHcB\u002fB7T8S3EdwH8HtPxLcR3Afwe0\u002fEtxHcB\u002fB7T8S3EdwH8HtP5TXUF5Dee0\u002fEtxHcB\u002fB7T8S3EdwH8HtPxLcR3Afwe0\u002fEtxHcB\u002fB7T8S3EdwH8HtP5TXUF5Dee0\u002fFtNZTGcx7T8W01lMZzHtPxbTWUxnMe0\u002fFtNZTGcx7T8W01lMZzHtPxbTWUxnMe0\u002fFtNZTGcx7T8W01lMZzHtP5TXUF5Dee0\u002fFtNZTGcx7T+ZzmI6i+nsP6K8hvIayus\u002f"},"type":"scatter"},{"mode":"lines","name":"precision","x":{"dtype":"f8","bdata":"exSuR+F6hD97FK5H4XqUP7gehetRuJ4\u002fexSuR+F6pD+amZmZmZmpP7gehetRuK4\u002f7FG4HoXrsT97FK5H4Xq0PwrXo3A9Crc\u002fmpmZmZmZuT8pXI\u002fC9Si8P7gehetRuL4\u002fpHA9CtejwD\u002fsUbgehevBPzMzMzMzM8M\u002fexSuR+F6xD\u002fD9Shcj8LFPwrXo3A9Csc\u002fUrgehetRyD+amZmZmZnJP+F6FK5H4co\u002fKVyPwvUozD9xPQrXo3DNP7gehetRuM4\u002fAAAAAAAA0D+kcD0K16PQP0jhehSuR9E\u002f7FG4HoXr0T+PwvUoXI\u002fSPzMzMzMzM9M\u002f16NwPQrX0z97FK5H4XrUPx+F61G4HtU\u002fw\u002fUoXI\u002fC1T9mZmZmZmbWPwrXo3A9Ctc\u002frkfhehSu1z9SuB6F61HYP\u002fYoXI\u002fC9dg\u002fmpmZmZmZ2T89CtejcD3aP+F6FK5H4do\u002fhetRuB6F2z8pXI\u002fC9SjcP83MzMzMzNw\u002fcT0K16Nw3T8UrkfhehTeP7gehetRuN4\u002fXI\u002fC9Shc3z8AAAAAAADgP1K4HoXrUeA\u002fpHA9Ctej4D\u002f2KFyPwvXgP0jhehSuR+E\u002fmpmZmZmZ4T\u002fsUbgehevhPz0K16NwPeI\u002fj8L1KFyP4j\u002fhehSuR+HiPzMzMzMzM+M\u002fhetRuB6F4z\u002fXo3A9CtfjPylcj8L1KOQ\u002fexSuR+F65D\u002fNzMzMzMzkPx+F61G4HuU\u002fcT0K16Nw5T\u002fD9Shcj8LlPxSuR+F6FOY\u002fZmZmZmZm5j+4HoXrUbjmPwrXo3A9Cuc\u002fXI\u002fC9Shc5z+uR+F6FK7nPwAAAAAAAOg\u002fUrgehetR6D+kcD0K16PoP\u002fYoXI\u002fC9eg\u002fSOF6FK5H6T+amZmZmZnpP+xRuB6F6+k\u002fPQrXo3A96j+PwvUoXI\u002fqP+F6FK5H4eo\u002fMzMzMzMz6z+F61G4HoXrP9ejcD0K1+s\u002fKVyPwvUo7D97FK5H4XrsP83MzMzMzOw\u002fH4XrUbge7T9xPQrXo3DtP8P1KFyPwu0\u002fFK5H4XoU7j9mZmZmZmbuP7gehetRuO4\u002fCtejcD0K7z9cj8L1KFzvP65H4XoUru8\u002f"},"y":{"dtype":"f8","bdata":"VDqyZyAq7T+e2Imd2IntP57YiZ3Yie0\u002fNbB3TA3s7T81sHdMDeztPzWwd0wN7O0\u002fNbB3TA3s7T81sHdMDeztPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fDeU1lNdQ7j8N5TWU11DuPw3lNZTXUO4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP0t+seQXS+4\u002fS36x5BdL7j9LfrHkF0vuP1Pks24wRe4\u002fU+SzbjBF7j9T5LNuMEXuP1Pks24wRe4\u002fU+SzbjBF7j9T5LNuMEXuP1Pks24wRe4\u002fU+SzbjBF7j9T5LNuMEXuP1Pks24wRe4\u002fU+SzbjBF7j9T5LNuMEXuP1Pks24wRe4\u002fU+SzbjBF7j9T5LNuMEXuP1Pks24wRe4\u002fU+SzbjBF7j\u002fy48ePHz\u002fuP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuP0\u002fGb5d6Mu4\u002fD+qgDuqg7j8P6qAO6qDuPw\u002fqoA7qoO4\u002fD+qgDuqg7j8P6qAO6qDuP+pNb3rTm+4\u002fl5aWlpaW7j+XlpaWlpbuP5eWlpaWlu4\u002fl5aWlpaW7j+XlpaWlpbuP5eWlpaWlu4\u002fCB988MEH7z8IH3zwwQfvPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002f"},"type":"scatter"},{"mode":"lines","name":"recall","x":{"dtype":"f8","bdata":"exSuR+F6hD97FK5H4XqUP7gehetRuJ4\u002fexSuR+F6pD+amZmZmZmpP7gehetRuK4\u002f7FG4HoXrsT97FK5H4Xq0PwrXo3A9Crc\u002fmpmZmZmZuT8pXI\u002fC9Si8P7gehetRuL4\u002fpHA9CtejwD\u002fsUbgehevBPzMzMzMzM8M\u002fexSuR+F6xD\u002fD9Shcj8LFPwrXo3A9Csc\u002fUrgehetRyD+amZmZmZnJP+F6FK5H4co\u002fKVyPwvUozD9xPQrXo3DNP7gehetRuM4\u002fAAAAAAAA0D+kcD0K16PQP0jhehSuR9E\u002f7FG4HoXr0T+PwvUoXI\u002fSPzMzMzMzM9M\u002f16NwPQrX0z97FK5H4XrUPx+F61G4HtU\u002fw\u002fUoXI\u002fC1T9mZmZmZmbWPwrXo3A9Ctc\u002frkfhehSu1z9SuB6F61HYP\u002fYoXI\u002fC9dg\u002fmpmZmZmZ2T89CtejcD3aP+F6FK5H4do\u002fhetRuB6F2z8pXI\u002fC9SjcP83MzMzMzNw\u002fcT0K16Nw3T8UrkfhehTeP7gehetRuN4\u002fXI\u002fC9Shc3z8AAAAAAADgP1K4HoXrUeA\u002fpHA9Ctej4D\u002f2KFyPwvXgP0jhehSuR+E\u002fmpmZmZmZ4T\u002fsUbgehevhPz0K16NwPeI\u002fj8L1KFyP4j\u002fhehSuR+HiPzMzMzMzM+M\u002fhetRuB6F4z\u002fXo3A9CtfjPylcj8L1KOQ\u002fexSuR+F65D\u002fNzMzMzMzkPx+F61G4HuU\u002fcT0K16Nw5T\u002fD9Shcj8LlPxSuR+F6FOY\u002fZmZmZmZm5j+4HoXrUbjmPwrXo3A9Cuc\u002fXI\u002fC9Shc5z+uR+F6FK7nPwAAAAAAAOg\u002fUrgehetR6D+kcD0K16PoP\u002fYoXI\u002fC9eg\u002fSOF6FK5H6T+amZmZmZnpP+xRuB6F6+k\u002fPQrXo3A96j+PwvUoXI\u002fqP+F6FK5H4eo\u002fMzMzMzMz6z+F61G4HoXrP9ejcD0K1+s\u002fKVyPwvUo7D97FK5H4XrsP83MzMzMzOw\u002fH4XrUbge7T9xPQrXo3DtP8P1KFyPwu0\u002fFK5H4XoU7j9mZmZmZmbuP7gehetRuO4\u002fCtejcD0K7z9cj8L1KFzvP65H4XoUru8\u002f"},"y":{"dtype":"f8","bdata":"AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP+Q4juM4ju8\u002f5DiO4ziO7z\u002fkOI7jOI7vP8dxHMdxHO8\u002fx3Ecx3Ec7z\u002fHcRzHcRzvP8dxHMdxHO8\u002fx3Ecx3Ec7z\u002fHcRzHcRzvP8dxHMdxHO8\u002fx3Ecx3Ec7z\u002fHcRzHcRzvP8dxHMdxHO8\u002fx3Ecx3Ec7z\u002fHcRzHcRzvP8dxHMdxHO8\u002fx3Ecx3Ec7z\u002fHcRzHcRzvP8dxHMdxHO8\u002fx3Ecx3Ec7z+rqqqqqqruP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuP3Icx3Ecx+0\u002fchzHcRzH7T9yHMdxHMftP3Icx3Ecx+0\u002fchzHcRzH7T9yHMdxHMftP1VVVVVVVe0\u002fOY7jOI7j7D85juM4juPsPzmO4ziO4+w\u002fOY7jOI7j7D85juM4juPsPzmO4ziO4+w\u002fHMdxHMdx7D8cx3Ecx3HsPwAAAAAAAOw\u002f5DiO4ziO6z\u002fHcRzHcRzrP1VVVVVVVek\u002f"},"type":"scatter"},{"mode":"lines","name":"f1","x":{"dtype":"f8","bdata":"exSuR+F6hD97FK5H4XqUP7gehetRuJ4\u002fexSuR+F6pD+amZmZmZmpP7gehetRuK4\u002f7FG4HoXrsT97FK5H4Xq0PwrXo3A9Crc\u002fmpmZmZmZuT8pXI\u002fC9Si8P7gehetRuL4\u002fpHA9CtejwD\u002fsUbgehevBPzMzMzMzM8M\u002fexSuR+F6xD\u002fD9Shcj8LFPwrXo3A9Csc\u002fUrgehetRyD+amZmZmZnJP+F6FK5H4co\u002fKVyPwvUozD9xPQrXo3DNP7gehetRuM4\u002fAAAAAAAA0D+kcD0K16PQP0jhehSuR9E\u002f7FG4HoXr0T+PwvUoXI\u002fSPzMzMzMzM9M\u002f16NwPQrX0z97FK5H4XrUPx+F61G4HtU\u002fw\u002fUoXI\u002fC1T9mZmZmZmbWPwrXo3A9Ctc\u002frkfhehSu1z9SuB6F61HYP\u002fYoXI\u002fC9dg\u002fmpmZmZmZ2T89CtejcD3aP+F6FK5H4do\u002fhetRuB6F2z8pXI\u002fC9SjcP83MzMzMzNw\u002fcT0K16Nw3T8UrkfhehTeP7gehetRuN4\u002fXI\u002fC9Shc3z8AAAAAAADgP1K4HoXrUeA\u002fpHA9Ctej4D\u002f2KFyPwvXgP0jhehSuR+E\u002fmpmZmZmZ4T\u002fsUbgehevhPz0K16NwPeI\u002fj8L1KFyP4j\u002fhehSuR+HiPzMzMzMzM+M\u002fhetRuB6F4z\u002fXo3A9CtfjPylcj8L1KOQ\u002fexSuR+F65D\u002fNzMzMzMzkPx+F61G4HuU\u002fcT0K16Nw5T\u002fD9Shcj8LlPxSuR+F6FOY\u002fZmZmZmZm5j+4HoXrUbjmPwrXo3A9Cuc\u002fXI\u002fC9Shc5z+uR+F6FK7nPwAAAAAAAOg\u002fUrgehetR6D+kcD0K16PoP\u002fYoXI\u002fC9eg\u002fSOF6FK5H6T+amZmZmZnpP+xRuB6F6+k\u002fPQrXo3A96j+PwvUoXI\u002fqP+F6FK5H4eo\u002fMzMzMzMz6z+F61G4HoXrP9ejcD0K1+s\u002fKVyPwvUo7D97FK5H4XrsP83MzMzMzOw\u002fH4XrUbge7T9xPQrXo3DtP8P1KFyPwu0\u002fFK5H4XoU7j9mZmZmZmbuP7gehetRuO4\u002fCtejcD0K7z9cj8L1KFzvP65H4XoUru8\u002f"},"y":{"dtype":"f8","bdata":"9BB6CD2E7j+4HoXrUbjuP7gehetRuO4\u002f\u002fXmVxRnt7j\u002f9eZXFGe3uP\u002f15lcUZ7e4\u002f\u002fXmVxRnt7j\u002f9eZXFGe3uPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fKvJZN5gi7z8q8lk3mCLvPyryWTeYIu8\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP7o3oExc6e4\u002fujegTFzp7j+6N6BMXOnuP\u002fXq1atXr+4\u002f9erVq1ev7j\u002f16tWrV6\u002fuP\u002fXq1atXr+4\u002f9erVq1ev7j\u002f16tWrV6\u002fuP\u002fXq1atXr+4\u002f9erVq1ev7j\u002f16tWrV6\u002fuP\u002fXq1atXr+4\u002f9erVq1ev7j\u002f16tWrV6\u002fuP\u002fXq1atXr+4\u002f9erVq1ev7j\u002f16tWrV6\u002fuP\u002fXq1atXr+4\u002f9erVq1ev7j9jSOcthnTuP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuP47jOI7jOO4\u002fjuM4juM47j+O4ziO4zjuPyRUn2lr\u002fO0\u002fT8Zvl3oy7j9Pxm+XejLuP0\u002fGb5d6Mu4\u002fT8Zvl3oy7j9Pxm+XejLuP3g26jsb9e0\u002fbtu2bdu27T9u27Zt27btP27btm3btu0\u002fbtu2bdu27T9u27Zt27btP27btm3btu0\u002f24G5dmCu7T\u002fbgbl2YK7tP97d3d3d3e0\u002frDGRHqic7T+n1Z1Wd1rtPxJ3xB1xR+w\u002f"},"type":"scatter"},{"mode":"lines","name":"mcc","x":{"dtype":"f8","bdata":"exSuR+F6hD97FK5H4XqUP7gehetRuJ4\u002fexSuR+F6pD+amZmZmZmpP7gehetRuK4\u002f7FG4HoXrsT97FK5H4Xq0PwrXo3A9Crc\u002fmpmZmZmZuT8pXI\u002fC9Si8P7gehetRuL4\u002fpHA9CtejwD\u002fsUbgehevBPzMzMzMzM8M\u002fexSuR+F6xD\u002fD9Shcj8LFPwrXo3A9Csc\u002fUrgehetRyD+amZmZmZnJP+F6FK5H4co\u002fKVyPwvUozD9xPQrXo3DNP7gehetRuM4\u002fAAAAAAAA0D+kcD0K16PQP0jhehSuR9E\u002f7FG4HoXr0T+PwvUoXI\u002fSPzMzMzMzM9M\u002f16NwPQrX0z97FK5H4XrUPx+F61G4HtU\u002fw\u002fUoXI\u002fC1T9mZmZmZmbWPwrXo3A9Ctc\u002frkfhehSu1z9SuB6F61HYP\u002fYoXI\u002fC9dg\u002fmpmZmZmZ2T89CtejcD3aP+F6FK5H4do\u002fhetRuB6F2z8pXI\u002fC9SjcP83MzMzMzNw\u002fcT0K16Nw3T8UrkfhehTeP7gehetRuN4\u002fXI\u002fC9Shc3z8AAAAAAADgP1K4HoXrUeA\u002fpHA9Ctej4D\u002f2KFyPwvXgP0jhehSuR+E\u002fmpmZmZmZ4T\u002fsUbgehevhPz0K16NwPeI\u002fj8L1KFyP4j\u002fhehSuR+HiPzMzMzMzM+M\u002fhetRuB6F4z\u002fXo3A9CtfjPylcj8L1KOQ\u002fexSuR+F65D\u002fNzMzMzMzkPx+F61G4HuU\u002fcT0K16Nw5T\u002fD9Shcj8LlPxSuR+F6FOY\u002fZmZmZmZm5j+4HoXrUbjmPwrXo3A9Cuc\u002fXI\u002fC9Shc5z+uR+F6FK7nPwAAAAAAAOg\u002fUrgehetR6D+kcD0K16PoP\u002fYoXI\u002fC9eg\u002fSOF6FK5H6T+amZmZmZnpP+xRuB6F6+k\u002fPQrXo3A96j+PwvUoXI\u002fqP+F6FK5H4eo\u002fMzMzMzMz6z+F61G4HoXrP9ejcD0K1+s\u002fKVyPwvUo7D97FK5H4XrsP83MzMzMzOw\u002fH4XrUbge7T9xPQrXo3DtP8P1KFyPwu0\u002fFK5H4XoU7j9mZmZmZmbuP7gehetRuO4\u002fCtejcD0K7z9cj8L1KFzvP65H4XoUru8\u002f"},"y":{"dtype":"f8","bdata":"L3oenT3j6z\u002f4e\u002fz7xnbsP\u002fh7\u002fPvGduw\u002fzhX3nRoL7T\u002fOFfedGgvtP84V950aC+0\u002fzhX3nRoL7T\u002fOFfedGgvtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fBBVQeVGg7T8EFVB5UaDtPwQVUHlRoO0\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP478SVmC\u002fOw\u002fjvxJWYL87D+O\u002fElZgvzsP+QVbJiBXew\u002f5BVsmIFd7D\u002fkFWyYgV3sP+QVbJiBXew\u002f5BVsmIFd7D\u002fkFWyYgV3sP+QVbJiBXew\u002f5BVsmIFd7D\u002fkFWyYgV3sP+QVbJiBXew\u002f5BVsmIFd7D\u002fkFWyYgV3sP+QVbJiBXew\u002f5BVsmIFd7D\u002fkFWyYgV3sP+QVbJiBXew\u002f5BVsmIFd7D9Z3UOD\u002f8LrP8uyLMuyLOs\u002fy7Isy7Is6z\u002fLsizLsizrP8uyLMuyLOs\u002fy7Isy7Is6z\u002fLsizLsizrP\u002fr929dXmuo\u002fAtIwd7E96z8C0jB3sT3rPwLSMHexPes\u002fAtIwd7E96z8C0jB3sT3rP1ejGjNHseo\u002f0dySND0o6j\u002fR3JI0PSjqP9HckjQ9KOo\u002f0dySND0o6j\u002fR3JI0PSjqP9HckjQ9KOo\u002fLXUyXDtN6j8tdTJcO03qPzlZuD\u002f7Kes\u002fcZ1seuqv6j+r\u002faR8XDjqP7IoHEy+cOg\u002f"},"type":"scatter"},{"marker":{"size":10},"mode":"markers","name":"current (F1)","x":[0.01],"y":[0.9536423841059603],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Interactive Dynamic Threshold Analysis (drag slider)"},"xaxis":{"title":{"text":"Threshold"}},"yaxis":{"title":{"text":"Metric value"}},"height":450},                        {"responsive": true}                    )                };            </script>        </div>
+      <div style="margin-top:10px;">
+        <label><b>Threshold:</b></label>
+        <input id="thrSlider" type="range" min="0" max="98" value="0" step="1" style="width:100%;">
+        <div style="margin-top:8px;">
+    <table id="metricTable">
+      <thead>
+        <tr>
+          <th>threshold</th><th>accuracy</th><th>precision</th><th>recall</th><th>f1</th><th>mcc</th>
+          <th>hamming_loss</th><th>jaccard_loss</th><th>zero_one_loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="t"></td><td id="acc"></td><td id="prec"></td><td id="rec"></td><td id="f1"></td><td id="mcc"></td>
+          <td id="ham"></td><td id="jac"></td><td id="zo"></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+      </div>
+
+      <div style="margin-top:18px;" id="cmBlock">
+        <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="8157b2f1-b1a8-44d9-be33-9b483a0deb8b" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("8157b2f1-b1a8-44d9-be33-9b483a0deb8b")) {                    Plotly.newPlot(                        "8157b2f1-b1a8-44d9-be33-9b483a0deb8b",                        [{"coloraxis":"coloraxis","name":"0","texttemplate":"%{z}","z":{"dtype":"i1","bdata":"IwcASA==","shape":"2, 2"},"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"Predicted: %{x}\u003cbr\u003eActual: %{y}\u003cbr\u003ecolor: %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"scaleanchor":"y","constrain":"domain","title":{"text":"Predicted"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","constrain":"domain","title":{"text":"Actual"}},"coloraxis":{"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"title":{"text":"Confusion Matrix @ threshold"}},                        {"responsive": true}                    )                };            </script>        </div>
+      </div>
+    </div>
+
+    <script>
+      const rows = [[0.01, 0.9385964912280702, 0.9113924050632911, 1.0, 0.9536423841059603, 0.8714893406611902, 0.06140350877192982, 0.08860759493670889, 0.06140350877192979], [0.02, 0.9473684210526315, 0.9230769230769231, 1.0, 0.96, 0.8894991799933214, 0.05263157894736842, 0.07692307692307687, 0.052631578947368474], [0.03, 0.9473684210526315, 0.9230769230769231, 1.0, 0.96, 0.8894991799933214, 0.05263157894736842, 0.07692307692307687, 0.052631578947368474], [0.04, 0.956140350877193, 0.935064935064935, 1.0, 0.9664429530201343, 0.907605465436683, 0.043859649122807015, 0.06493506493506496, 0.04385964912280704], [0.05, 0.956140350877193, 0.935064935064935, 1.0, 0.9664429530201343, 0.907605465436683, 0.043859649122807015, 0.06493506493506496, 0.04385964912280704], [0.06, 0.956140350877193, 0.935064935064935, 1.0, 0.9664429530201343, 0.907605465436683, 0.043859649122807015, 0.06493506493506496, 0.04385964912280704], [0.07, 0.956140350877193, 0.935064935064935, 1.0, 0.9664429530201343, 0.907605465436683, 0.043859649122807015, 0.06493506493506496, 0.04385964912280704], [0.08, 0.956140350877193, 0.935064935064935, 1.0, 0.9664429530201343, 0.907605465436683, 0.043859649122807015, 0.06493506493506496, 0.04385964912280704], [0.09, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.1, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.11, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.12, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.13, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.14, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.15, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.16, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.17, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.18, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.19, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.2, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.21, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.22, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.23, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.24, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.25, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.26, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.27, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.28, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.29, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.3, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.31, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.32, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.33, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.34, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.35, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.36, 0.9649122807017544, 0.9473684210526315, 1.0, 0.972972972972973, 0.9258200997725514, 0.03508771929824561, 0.052631578947368474, 0.03508771929824561], [0.37, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.38, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.39, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.4, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.41, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.42, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.43, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.44, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.45, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.46, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.47, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.48, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.49, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.5, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.51, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.52, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.53, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.54, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.55, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.56, 0.956140350877193, 0.9466666666666667, 0.9861111111111112, 0.9659863945578231, 0.9058238738943076, 0.043859649122807015, 0.06578947368421051, 0.04385964912280704], [0.57, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.58, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.59, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.6, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.61, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.62, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.63, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.64, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.65, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.66, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.67, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.68, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.69, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.7, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.71, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.72, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.73, 0.9473684210526315, 0.9459459459459459, 0.9722222222222222, 0.958904109589041, 0.8864143349643965, 0.05263157894736842, 0.07894736842105265, 0.052631578947368474], [0.74, 0.9385964912280702, 0.9452054794520548, 0.9583333333333334, 0.9517241379310345, 0.8675534786006366, 0.06140350877192982, 0.09210526315789469, 0.06140350877192979], [0.75, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.76, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.77, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.78, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.79, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.8, 0.9298245614035088, 0.9444444444444444, 0.9444444444444444, 0.9444444444444444, 0.8492063492063492, 0.07017543859649122, 0.10526315789473684, 0.07017543859649122], [0.81, 0.9210526315789473, 0.9436619718309859, 0.9305555555555556, 0.9370629370629371, 0.8313407150271239, 0.07894736842105263, 0.11842105263157898, 0.07894736842105265], [0.82, 0.9298245614035088, 0.9571428571428572, 0.9305555555555556, 0.9436619718309859, 0.8512809112494895, 0.07017543859649122, 0.10666666666666669, 0.07017543859649122], [0.83, 0.9298245614035088, 0.9571428571428572, 0.9305555555555556, 0.9436619718309859, 0.8512809112494895, 0.07017543859649122, 0.10666666666666669, 0.07017543859649122], [0.84, 0.9298245614035088, 0.9571428571428572, 0.9305555555555556, 0.9436619718309859, 0.8512809112494895, 0.07017543859649122, 0.10666666666666669, 0.07017543859649122], [0.85, 0.9298245614035088, 0.9571428571428572, 0.9305555555555556, 0.9436619718309859, 0.8512809112494895, 0.07017543859649122, 0.10666666666666669, 0.07017543859649122], [0.86, 0.9298245614035088, 0.9571428571428572, 0.9305555555555556, 0.9436619718309859, 0.8512809112494895, 0.07017543859649122, 0.10666666666666669, 0.07017543859649122], [0.87, 0.9210526315789473, 0.9565217391304348, 0.9166666666666666, 0.9361702127659575, 0.8341403959394523, 0.07894736842105263, 0.12, 0.07894736842105265], [0.88, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.89, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.9, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.91, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.92, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.93, 0.9122807017543859, 0.9558823529411765, 0.9027777777777778, 0.9285714285714286, 0.8174119974927639, 0.08771929824561403, 0.1333333333333333, 0.08771929824561409], [0.94, 0.9122807017543859, 0.9696969696969697, 0.8888888888888888, 0.927536231884058, 0.8219277191853159, 0.08771929824561403, 0.1351351351351351, 0.08771929824561409], [0.95, 0.9122807017543859, 0.9696969696969697, 0.8888888888888888, 0.927536231884058, 0.8219277191853159, 0.08771929824561403, 0.1351351351351351, 0.08771929824561409], [0.96, 0.9210526315789473, 1.0, 0.875, 0.9333333333333333, 0.8488746876271654, 0.07894736842105263, 0.125, 0.07894736842105265], [0.97, 0.9122807017543859, 1.0, 0.8611111111111112, 0.9253731343283582, 0.8339741126155059, 0.08771929824561403, 0.13888888888888884, 0.08771929824561409], [0.98, 0.9035087719298246, 1.0, 0.8472222222222222, 0.9172932330827067, 0.8193800386870199, 0.09649122807017543, 0.1527777777777778, 0.0964912280701754], [0.99, 0.868421052631579, 1.0, 0.7916666666666666, 0.8837209302325582, 0.7637626158259734, 0.13157894736842105, 0.20833333333333337, 0.13157894736842102]];
+      const cms = [[[35, 7], [0, 72]], [[36, 6], [0, 72]], [[36, 6], [0, 72]], [[37, 5], [0, 72]], [[37, 5], [0, 72]], [[37, 5], [0, 72]], [[37, 5], [0, 72]], [[37, 5], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [0, 72]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [1, 71]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [2, 70]], [[38, 4], [3, 69]], [[38, 4], [4, 68]], [[38, 4], [4, 68]], [[38, 4], [4, 68]], [[38, 4], [4, 68]], [[38, 4], [4, 68]], [[38, 4], [4, 68]], [[38, 4], [5, 67]], [[39, 3], [5, 67]], [[39, 3], [5, 67]], [[39, 3], [5, 67]], [[39, 3], [5, 67]], [[39, 3], [5, 67]], [[39, 3], [6, 66]], [[39, 3], [7, 65]], [[39, 3], [7, 65]], [[39, 3], [7, 65]], [[39, 3], [7, 65]], [[39, 3], [7, 65]], [[39, 3], [7, 65]], [[40, 2], [8, 64]], [[40, 2], [8, 64]], [[42, 0], [9, 63]], [[42, 0], [10, 62]], [[42, 0], [11, 61]], [[42, 0], [15, 57]]];
+
+      function fmt(x) {
+        return (typeof x === "number") ? x.toFixed(6) : x;
+      }
+
+      function updateTable(i) {
+        const r = rows[i];
+        document.getElementById("t").innerText = fmt(r[0]);
+        document.getElementById("acc").innerText = fmt(r[1]);
+        document.getElementById("prec").innerText = fmt(r[2]);
+        document.getElementById("rec").innerText = fmt(r[3]);
+        document.getElementById("f1").innerText = fmt(r[4]);
+        document.getElementById("mcc").innerText = fmt(r[5]);
+        document.getElementById("ham").innerText = fmt(r[6]);
+        document.getElementById("jac").innerText = fmt(r[7]);
+        document.getElementById("zo").innerText = fmt(r[8]);
+      }
+
+      function updateMarker(i) {
+        const thr = rows[i][0];
+        const f1 = rows[i][4];
+        Plotly.restyle("thrFig", {
+          x: [[thr]],
+          y: [[f1]]
+        }, [5]); // marker trace index = 5
+      }
+
+      function updateCM(i) {
+        const cm = cms[i];
+        const gd = document.querySelector("#cmBlock .js-plotly-plot");
+        const data = [{
+          z: cm,
+          type: "heatmap",
+          showscale: true
+        }];
+        const layout = {
+          title: "Confusion Matrix @ threshold = " + rows[i][0].toFixed(3),
+          xaxis: {title: "Predicted"},
+          yaxis: {title: "Actual"}
+        };
+        Plotly.react(gd, data, layout);
+      }
+
+      const slider = document.getElementById("thrSlider");
+      slider.addEventListener("input", (e) => {
+        const i = parseInt(e.target.value);
+        updateTable(i);
+        updateMarker(i);
+        updateCM(i);
+      });
+
+      updateTable(0);
+    </script>
+    </div>
+<h2>Decile Distribution Report (TEST)</h2>
+<div class='section'><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>DECILE</th>
+      <th>N</th>
+      <th>PRED_MEAN</th>
+      <th>ACTUAL_MEAN</th>
+      <th>RESPONDERS</th>
+      <th>CUM_RESPONDERS</th>
+      <th>CUM_PRECISION</th>
+      <th>CUM_RECALL</th>
+      <th>LIFT</th>
+      <th>PRED_MIN</th>
+      <th>PRED_MAX</th>
+      <th>f0 MEAN</th>
+      <th>f1 MEAN</th>
+      <th>f2 MEAN</th>
+      <th>f3 MEAN</th>
+      <th>f4 MEAN</th>
+      <th>f5 MEAN</th>
+      <th>f6 MEAN</th>
+      <th>f7 MEAN</th>
+      <th>f8 MEAN</th>
+      <th>f9 MEAN</th>
+      <th>f10 MEAN</th>
+      <th>f11 MEAN</th>
+      <th>f12 MEAN</th>
+      <th>f13 MEAN</th>
+      <th>f14 MEAN</th>
+      <th>f15 MEAN</th>
+      <th>f16 MEAN</th>
+      <th>f17 MEAN</th>
+      <th>f18 MEAN</th>
+      <th>f19 MEAN</th>
+      <th>f20 MEAN</th>
+      <th>f21 MEAN</th>
+      <th>f22 MEAN</th>
+      <th>f23 MEAN</th>
+      <th>f24 MEAN</th>
+      <th>f25 MEAN</th>
+      <th>f26 MEAN</th>
+      <th>f27 MEAN</th>
+      <th>f28 MEAN</th>
+      <th>f29 MEAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>12</td>
+      <td>0.999829</td>
+      <td>1.000000</td>
+      <td>12</td>
+      <td>12</td>
+      <td>1.000000</td>
+      <td>0.166667</td>
+      <td>1.583333</td>
+      <td>0.999742</td>
+      <td>0.999918</td>
+      <td>11.403167</td>
+      <td>16.307500</td>
+      <td>73.520000</td>
+      <td>403.700000</td>
+      <td>0.096028</td>
+      <td>0.090454</td>
+      <td>0.046960</td>
+      <td>0.024096</td>
+      <td>0.184567</td>
+      <td>0.065664</td>
+      <td>0.315842</td>
+      <td>1.209767</td>
+      <td>2.337667</td>
+      <td>21.490000</td>
+      <td>0.007776</td>
+      <td>0.025864</td>
+      <td>0.031686</td>
+      <td>0.011503</td>
+      <td>0.024402</td>
+      <td>0.004288</td>
+      <td>12.444250</td>
+      <td>20.417500</td>
+      <td>81.220000</td>
+      <td>476.791667</td>
+      <td>0.122753</td>
+      <td>0.176947</td>
+      <td>0.142743</td>
+      <td>0.062874</td>
+      <td>0.266375</td>
+      <td>0.080206</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>12</td>
+      <td>0.999629</td>
+      <td>1.000000</td>
+      <td>12</td>
+      <td>24</td>
+      <td>1.000000</td>
+      <td>0.333333</td>
+      <td>1.583333</td>
+      <td>0.999531</td>
+      <td>0.999738</td>
+      <td>11.813250</td>
+      <td>18.129167</td>
+      <td>75.424167</td>
+      <td>434.541667</td>
+      <td>0.091169</td>
+      <td>0.063325</td>
+      <td>0.030722</td>
+      <td>0.019643</td>
+      <td>0.169133</td>
+      <td>0.061076</td>
+      <td>0.242742</td>
+      <td>1.142250</td>
+      <td>1.718667</td>
+      <td>17.327833</td>
+      <td>0.006955</td>
+      <td>0.016538</td>
+      <td>0.021247</td>
+      <td>0.008850</td>
+      <td>0.019707</td>
+      <td>0.003137</td>
+      <td>12.750417</td>
+      <td>23.406667</td>
+      <td>82.271667</td>
+      <td>506.141667</td>
+      <td>0.119450</td>
+      <td>0.133141</td>
+      <td>0.107690</td>
+      <td>0.060354</td>
+      <td>0.252742</td>
+      <td>0.075005</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>12</td>
+      <td>0.999361</td>
+      <td>1.000000</td>
+      <td>12</td>
+      <td>36</td>
+      <td>1.000000</td>
+      <td>0.500000</td>
+      <td>1.583333</td>
+      <td>0.999170</td>
+      <td>0.999508</td>
+      <td>12.346500</td>
+      <td>15.874167</td>
+      <td>79.109167</td>
+      <td>475.858333</td>
+      <td>0.084672</td>
+      <td>0.068867</td>
+      <td>0.040326</td>
+      <td>0.022344</td>
+      <td>0.173250</td>
+      <td>0.060512</td>
+      <td>0.250625</td>
+      <td>1.078358</td>
+      <td>1.647617</td>
+      <td>19.217000</td>
+      <td>0.006738</td>
+      <td>0.020346</td>
+      <td>0.024960</td>
+      <td>0.009681</td>
+      <td>0.020460</td>
+      <td>0.002967</td>
+      <td>13.429917</td>
+      <td>21.062500</td>
+      <td>86.514167</td>
+      <td>562.241667</td>
+      <td>0.116258</td>
+      <td>0.153193</td>
+      <td>0.138586</td>
+      <td>0.066499</td>
+      <td>0.276242</td>
+      <td>0.074964</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>12</td>
+      <td>0.997982</td>
+      <td>1.000000</td>
+      <td>12</td>
+      <td>48</td>
+      <td>1.000000</td>
+      <td>0.666667</td>
+      <td>1.583333</td>
+      <td>0.996848</td>
+      <td>0.998769</td>
+      <td>11.521000</td>
+      <td>20.584167</td>
+      <td>73.928333</td>
+      <td>413.850000</td>
+      <td>0.094688</td>
+      <td>0.081478</td>
+      <td>0.040588</td>
+      <td>0.023119</td>
+      <td>0.183475</td>
+      <td>0.065052</td>
+      <td>0.291633</td>
+      <td>1.231492</td>
+      <td>2.006583</td>
+      <td>19.707917</td>
+      <td>0.006772</td>
+      <td>0.018946</td>
+      <td>0.020192</td>
+      <td>0.009371</td>
+      <td>0.019633</td>
+      <td>0.003266</td>
+      <td>12.903333</td>
+      <td>27.376667</td>
+      <td>83.549167</td>
+      <td>513.741667</td>
+      <td>0.128361</td>
+      <td>0.189660</td>
+      <td>0.163457</td>
+      <td>0.076292</td>
+      <td>0.286667</td>
+      <td>0.081722</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>11</td>
+      <td>0.993001</td>
+      <td>1.000000</td>
+      <td>11</td>
+      <td>59</td>
+      <td>1.000000</td>
+      <td>0.819444</td>
+      <td>1.583333</td>
+      <td>0.989019</td>
+      <td>0.996206</td>
+      <td>12.540000</td>
+      <td>19.493636</td>
+      <td>81.072727</td>
+      <td>491.245455</td>
+      <td>0.093622</td>
+      <td>0.099875</td>
+      <td>0.060367</td>
+      <td>0.031334</td>
+      <td>0.184600</td>
+      <td>0.064543</td>
+      <td>0.299073</td>
+      <td>1.178273</td>
+      <td>2.239455</td>
+      <td>23.134545</td>
+      <td>0.006758</td>
+      <td>0.026322</td>
+      <td>0.029658</td>
+      <td>0.010817</td>
+      <td>0.018017</td>
+      <td>0.004116</td>
+      <td>14.156000</td>
+      <td>25.956364</td>
+      <td>93.690909</td>
+      <td>623.300000</td>
+      <td>0.131619</td>
+      <td>0.283622</td>
+      <td>0.274603</td>
+      <td>0.104099</td>
+      <td>0.286173</td>
+      <td>0.090715</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>11</td>
+      <td>0.944265</td>
+      <td>0.727273</td>
+      <td>8</td>
+      <td>67</td>
+      <td>0.957143</td>
+      <td>0.930556</td>
+      <td>1.515476</td>
+      <td>0.864917</td>
+      <td>0.988802</td>
+      <td>14.085455</td>
+      <td>17.980000</td>
+      <td>91.734545</td>
+      <td>615.109091</td>
+      <td>0.103150</td>
+      <td>0.108855</td>
+      <td>0.071845</td>
+      <td>0.049572</td>
+      <td>0.180255</td>
+      <td>0.062755</td>
+      <td>0.350791</td>
+      <td>1.142055</td>
+      <td>2.524182</td>
+      <td>28.814545</td>
+      <td>0.006815</td>
+      <td>0.021687</td>
+      <td>0.024039</td>
+      <td>0.013033</td>
+      <td>0.017573</td>
+      <td>0.003410</td>
+      <td>15.765455</td>
+      <td>22.890909</td>
+      <td>103.994545</td>
+      <td>761.500000</td>
+      <td>0.138673</td>
+      <td>0.250835</td>
+      <td>0.237185</td>
+      <td>0.118424</td>
+      <td>0.282664</td>
+      <td>0.084247</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>11</td>
+      <td>0.378683</td>
+      <td>0.454545</td>
+      <td>5</td>
+      <td>72</td>
+      <td>0.888889</td>
+      <td>1.000000</td>
+      <td>1.407407</td>
+      <td>0.008600</td>
+      <td>0.813938</td>
+      <td>16.049091</td>
+      <td>20.159091</td>
+      <td>104.730000</td>
+      <td>813.000000</td>
+      <td>0.096635</td>
+      <td>0.116584</td>
+      <td>0.092794</td>
+      <td>0.061548</td>
+      <td>0.181127</td>
+      <td>0.059093</td>
+      <td>0.433864</td>
+      <td>1.160182</td>
+      <td>3.133545</td>
+      <td>47.727273</td>
+      <td>0.006415</td>
+      <td>0.025987</td>
+      <td>0.028552</td>
+      <td>0.013905</td>
+      <td>0.019568</td>
+      <td>0.003136</td>
+      <td>18.140909</td>
+      <td>26.636364</td>
+      <td>120.547273</td>
+      <td>1046.645455</td>
+      <td>0.130282</td>
+      <td>0.260209</td>
+      <td>0.256000</td>
+      <td>0.133235</td>
+      <td>0.282727</td>
+      <td>0.076955</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>11</td>
+      <td>0.002346</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>72</td>
+      <td>0.782609</td>
+      <td>1.000000</td>
+      <td>1.239130</td>
+      <td>0.000633</td>
+      <td>0.005313</td>
+      <td>17.060909</td>
+      <td>20.277273</td>
+      <td>112.059091</td>
+      <td>924.245455</td>
+      <td>0.101616</td>
+      <td>0.135013</td>
+      <td>0.133885</td>
+      <td>0.077333</td>
+      <td>0.191727</td>
+      <td>0.062772</td>
+      <td>0.523618</td>
+      <td>1.122473</td>
+      <td>3.691455</td>
+      <td>58.969091</td>
+      <td>0.006508</td>
+      <td>0.029059</td>
+      <td>0.031855</td>
+      <td>0.014043</td>
+      <td>0.017095</td>
+      <td>0.004272</td>
+      <td>20.870909</td>
+      <td>28.759091</td>
+      <td>139.072727</td>
+      <td>1361.863636</td>
+      <td>0.149073</td>
+      <td>0.386336</td>
+      <td>0.387973</td>
+      <td>0.179245</td>
+      <td>0.331527</td>
+      <td>0.095794</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>11</td>
+      <td>0.000456</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>72</td>
+      <td>0.699029</td>
+      <td>1.000000</td>
+      <td>1.106796</td>
+      <td>0.000358</td>
+      <td>0.000601</td>
+      <td>18.283636</td>
+      <td>24.240000</td>
+      <td>121.920000</td>
+      <td>1104.509091</td>
+      <td>0.103507</td>
+      <td>0.155217</td>
+      <td>0.182127</td>
+      <td>0.101966</td>
+      <td>0.190527</td>
+      <td>0.064082</td>
+      <td>0.869036</td>
+      <td>1.615455</td>
+      <td>6.302818</td>
+      <td>119.810000</td>
+      <td>0.007247</td>
+      <td>0.040256</td>
+      <td>0.043665</td>
+      <td>0.017261</td>
+      <td>0.022254</td>
+      <td>0.005776</td>
+      <td>22.512727</td>
+      <td>32.283636</td>
+      <td>152.263636</td>
+      <td>1654.027273</td>
+      <td>0.142945</td>
+      <td>0.368055</td>
+      <td>0.427218</td>
+      <td>0.185064</td>
+      <td>0.303164</td>
+      <td>0.095148</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>11</td>
+      <td>0.000270</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>72</td>
+      <td>0.631579</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000124</td>
+      <td>0.000354</td>
+      <td>19.511818</td>
+      <td>22.170000</td>
+      <td>129.209091</td>
+      <td>1216.463636</td>
+      <td>0.108207</td>
+      <td>0.153564</td>
+      <td>0.189955</td>
+      <td>0.111709</td>
+      <td>0.196745</td>
+      <td>0.061410</td>
+      <td>0.778218</td>
+      <td>1.229327</td>
+      <td>5.199545</td>
+      <td>99.997273</td>
+      <td>0.006653</td>
+      <td>0.029138</td>
+      <td>0.038517</td>
+      <td>0.015308</td>
+      <td>0.016747</td>
+      <td>0.003621</td>
+      <td>24.753636</td>
+      <td>30.170000</td>
+      <td>164.472727</td>
+      <td>1910.636364</td>
+      <td>0.149791</td>
+      <td>0.371127</td>
+      <td>0.453609</td>
+      <td>0.206500</td>
+      <td>0.306927</td>
+      <td>0.086924</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>Decile Distribution Report (TRAIN)</h2>
+<div class='section'><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>DECILE</th>
+      <th>N</th>
+      <th>PRED_MEAN</th>
+      <th>ACTUAL_MEAN</th>
+      <th>RESPONDERS</th>
+      <th>CUM_RESPONDERS</th>
+      <th>CUM_PRECISION</th>
+      <th>CUM_RECALL</th>
+      <th>LIFT</th>
+      <th>PRED_MIN</th>
+      <th>PRED_MAX</th>
+      <th>f0 MEAN</th>
+      <th>f1 MEAN</th>
+      <th>f2 MEAN</th>
+      <th>f3 MEAN</th>
+      <th>f4 MEAN</th>
+      <th>f5 MEAN</th>
+      <th>f6 MEAN</th>
+      <th>f7 MEAN</th>
+      <th>f8 MEAN</th>
+      <th>f9 MEAN</th>
+      <th>f10 MEAN</th>
+      <th>f11 MEAN</th>
+      <th>f12 MEAN</th>
+      <th>f13 MEAN</th>
+      <th>f14 MEAN</th>
+      <th>f15 MEAN</th>
+      <th>f16 MEAN</th>
+      <th>f17 MEAN</th>
+      <th>f18 MEAN</th>
+      <th>f19 MEAN</th>
+      <th>f20 MEAN</th>
+      <th>f21 MEAN</th>
+      <th>f22 MEAN</th>
+      <th>f23 MEAN</th>
+      <th>f24 MEAN</th>
+      <th>f25 MEAN</th>
+      <th>f26 MEAN</th>
+      <th>f27 MEAN</th>
+      <th>f28 MEAN</th>
+      <th>f29 MEAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>46</td>
+      <td>0.999869</td>
+      <td>1.000000</td>
+      <td>46</td>
+      <td>46</td>
+      <td>1.000000</td>
+      <td>0.161404</td>
+      <td>1.596491</td>
+      <td>0.999780</td>
+      <td>0.999957</td>
+      <td>11.334761</td>
+      <td>15.855435</td>
+      <td>72.914130</td>
+      <td>400.106522</td>
+      <td>0.092088</td>
+      <td>0.084164</td>
+      <td>0.042613</td>
+      <td>0.021191</td>
+      <td>0.168363</td>
+      <td>0.065023</td>
+      <td>0.257963</td>
+      <td>1.007289</td>
+      <td>1.850883</td>
+      <td>17.659130</td>
+      <td>0.007651</td>
+      <td>0.027555</td>
+      <td>0.028844</td>
+      <td>0.009655</td>
+      <td>0.019563</td>
+      <td>0.004381</td>
+      <td>12.382957</td>
+      <td>20.350000</td>
+      <td>80.866522</td>
+      <td>475.591304</td>
+      <td>0.122942</td>
+      <td>0.202763</td>
+      <td>0.164305</td>
+      <td>0.065978</td>
+      <td>0.256424</td>
+      <td>0.083280</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>46</td>
+      <td>0.999711</td>
+      <td>1.000000</td>
+      <td>46</td>
+      <td>92</td>
+      <td>1.000000</td>
+      <td>0.322807</td>
+      <td>1.596491</td>
+      <td>0.999610</td>
+      <td>0.999780</td>
+      <td>12.018739</td>
+      <td>15.796739</td>
+      <td>77.032609</td>
+      <td>448.941304</td>
+      <td>0.090850</td>
+      <td>0.071298</td>
+      <td>0.034537</td>
+      <td>0.022712</td>
+      <td>0.172787</td>
+      <td>0.061728</td>
+      <td>0.255496</td>
+      <td>1.008067</td>
+      <td>1.786109</td>
+      <td>18.879804</td>
+      <td>0.006740</td>
+      <td>0.017902</td>
+      <td>0.018627</td>
+      <td>0.009104</td>
+      <td>0.020657</td>
+      <td>0.002927</td>
+      <td>13.133370</td>
+      <td>20.535435</td>
+      <td>85.087174</td>
+      <td>534.308696</td>
+      <td>0.122040</td>
+      <td>0.163607</td>
+      <td>0.133461</td>
+      <td>0.069684</td>
+      <td>0.271415</td>
+      <td>0.076667</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>46</td>
+      <td>0.999483</td>
+      <td>1.000000</td>
+      <td>46</td>
+      <td>138</td>
+      <td>1.000000</td>
+      <td>0.484211</td>
+      <td>1.596491</td>
+      <td>0.999270</td>
+      <td>0.999605</td>
+      <td>12.107217</td>
+      <td>16.944783</td>
+      <td>77.513913</td>
+      <td>458.691304</td>
+      <td>0.092498</td>
+      <td>0.069668</td>
+      <td>0.032607</td>
+      <td>0.021476</td>
+      <td>0.170993</td>
+      <td>0.061714</td>
+      <td>0.252070</td>
+      <td>1.068287</td>
+      <td>1.783030</td>
+      <td>18.848891</td>
+      <td>0.006643</td>
+      <td>0.015890</td>
+      <td>0.017561</td>
+      <td>0.008167</td>
+      <td>0.020414</td>
+      <td>0.002874</td>
+      <td>13.326043</td>
+      <td>22.352826</td>
+      <td>86.346087</td>
+      <td>553.076087</td>
+      <td>0.125827</td>
+      <td>0.156915</td>
+      <td>0.129144</td>
+      <td>0.067232</td>
+      <td>0.274898</td>
+      <td>0.076708</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>46</td>
+      <td>0.998923</td>
+      <td>1.000000</td>
+      <td>46</td>
+      <td>184</td>
+      <td>1.000000</td>
+      <td>0.645614</td>
+      <td>1.596491</td>
+      <td>0.998475</td>
+      <td>0.999269</td>
+      <td>11.737283</td>
+      <td>18.145870</td>
+      <td>74.959130</td>
+      <td>430.169565</td>
+      <td>0.092169</td>
+      <td>0.064883</td>
+      <td>0.030214</td>
+      <td>0.018941</td>
+      <td>0.172357</td>
+      <td>0.061963</td>
+      <td>0.267337</td>
+      <td>1.302970</td>
+      <td>1.792954</td>
+      <td>19.525652</td>
+      <td>0.008234</td>
+      <td>0.016597</td>
+      <td>0.018296</td>
+      <td>0.007827</td>
+      <td>0.021155</td>
+      <td>0.003384</td>
+      <td>12.849870</td>
+      <td>23.742174</td>
+      <td>82.517174</td>
+      <td>513.850000</td>
+      <td>0.127474</td>
+      <td>0.135998</td>
+      <td>0.109963</td>
+      <td>0.054674</td>
+      <td>0.262339</td>
+      <td>0.076373</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>46</td>
+      <td>0.997542</td>
+      <td>1.000000</td>
+      <td>46</td>
+      <td>230</td>
+      <td>1.000000</td>
+      <td>0.807018</td>
+      <td>1.596491</td>
+      <td>0.995898</td>
+      <td>0.998468</td>
+      <td>12.173565</td>
+      <td>19.532391</td>
+      <td>78.318261</td>
+      <td>466.486957</td>
+      <td>0.092748</td>
+      <td>0.085125</td>
+      <td>0.052474</td>
+      <td>0.027915</td>
+      <td>0.178776</td>
+      <td>0.063621</td>
+      <td>0.297239</td>
+      <td>1.413576</td>
+      <td>2.141943</td>
+      <td>21.951413</td>
+      <td>0.007282</td>
+      <td>0.021847</td>
+      <td>0.028198</td>
+      <td>0.010455</td>
+      <td>0.021321</td>
+      <td>0.003591</td>
+      <td>13.509696</td>
+      <td>25.723913</td>
+      <td>88.061522</td>
+      <td>572.676087</td>
+      <td>0.126405</td>
+      <td>0.192291</td>
+      <td>0.187549</td>
+      <td>0.081238</td>
+      <td>0.280139</td>
+      <td>0.080436</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>45</td>
+      <td>0.990292</td>
+      <td>1.000000</td>
+      <td>45</td>
+      <td>275</td>
+      <td>1.000000</td>
+      <td>0.964912</td>
+      <td>1.596491</td>
+      <td>0.976188</td>
+      <td>0.995830</td>
+      <td>12.663756</td>
+      <td>21.169333</td>
+      <td>81.796889</td>
+      <td>505.868889</td>
+      <td>0.091199</td>
+      <td>0.088222</td>
+      <td>0.065322</td>
+      <td>0.031118</td>
+      <td>0.169853</td>
+      <td>0.062477</td>
+      <td>0.337491</td>
+      <td>1.557607</td>
+      <td>2.379178</td>
+      <td>26.353778</td>
+      <td>0.007216</td>
+      <td>0.025838</td>
+      <td>0.036724</td>
+      <td>0.011177</td>
+      <td>0.021292</td>
+      <td>0.004412</td>
+      <td>14.129756</td>
+      <td>28.390000</td>
+      <td>92.457333</td>
+      <td>625.184444</td>
+      <td>0.124466</td>
+      <td>0.208382</td>
+      <td>0.228931</td>
+      <td>0.085814</td>
+      <td>0.268507</td>
+      <td>0.081268</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>45</td>
+      <td>0.233087</td>
+      <td>0.222222</td>
+      <td>10</td>
+      <td>285</td>
+      <td>0.890625</td>
+      <td>1.000000</td>
+      <td>1.421875</td>
+      <td>0.005764</td>
+      <td>0.970604</td>
+      <td>15.335800</td>
+      <td>18.605556</td>
+      <td>100.380000</td>
+      <td>755.477778</td>
+      <td>0.099415</td>
+      <td>0.123602</td>
+      <td>0.123962</td>
+      <td>0.064822</td>
+      <td>0.189920</td>
+      <td>0.063247</td>
+      <td>0.492678</td>
+      <td>1.191864</td>
+      <td>3.484622</td>
+      <td>53.083556</td>
+      <td>0.006479</td>
+      <td>0.028706</td>
+      <td>0.044362</td>
+      <td>0.014363</td>
+      <td>0.021620</td>
+      <td>0.004134</td>
+      <td>17.478667</td>
+      <td>25.210000</td>
+      <td>115.877111</td>
+      <td>966.326667</td>
+      <td>0.132597</td>
+      <td>0.304506</td>
+      <td>0.361995</td>
+      <td>0.144434</td>
+      <td>0.308233</td>
+      <td>0.086724</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>45</td>
+      <td>0.002613</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>285</td>
+      <td>0.780822</td>
+      <td>1.000000</td>
+      <td>1.246575</td>
+      <td>0.000787</td>
+      <td>0.005744</td>
+      <td>16.200889</td>
+      <td>21.674889</td>
+      <td>106.566000</td>
+      <td>836.573333</td>
+      <td>0.101425</td>
+      <td>0.138438</td>
+      <td>0.141670</td>
+      <td>0.075240</td>
+      <td>0.192280</td>
+      <td>0.063458</td>
+      <td>0.479582</td>
+      <td>1.146247</td>
+      <td>3.431267</td>
+      <td>50.935778</td>
+      <td>0.006698</td>
+      <td>0.033637</td>
+      <td>0.041759</td>
+      <td>0.014424</td>
+      <td>0.021122</td>
+      <td>0.004359</td>
+      <td>19.416000</td>
+      <td>29.656667</td>
+      <td>129.523333</td>
+      <td>1187.517778</td>
+      <td>0.147049</td>
+      <td>0.398258</td>
+      <td>0.458464</td>
+      <td>0.174782</td>
+      <td>0.338238</td>
+      <td>0.096817</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>45</td>
+      <td>0.000532</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>285</td>
+      <td>0.695122</td>
+      <td>1.000000</td>
+      <td>1.109756</td>
+      <td>0.000347</td>
+      <td>0.000770</td>
+      <td>18.454000</td>
+      <td>21.585778</td>
+      <td>122.135111</td>
+      <td>1080.237778</td>
+      <td>0.105687</td>
+      <td>0.151115</td>
+      <td>0.181848</td>
+      <td>0.099440</td>
+      <td>0.194833</td>
+      <td>0.061706</td>
+      <td>0.661731</td>
+      <td>1.343478</td>
+      <td>4.667667</td>
+      <td>81.392222</td>
+      <td>0.007070</td>
+      <td>0.034656</td>
+      <td>0.045838</td>
+      <td>0.015785</td>
+      <td>0.020539</td>
+      <td>0.003983</td>
+      <td>22.378444</td>
+      <td>29.692000</td>
+      <td>150.111111</td>
+      <td>1579.715556</td>
+      <td>0.145316</td>
+      <td>0.382482</td>
+      <td>0.481751</td>
+      <td>0.192533</td>
+      <td>0.321627</td>
+      <td>0.089182</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>45</td>
+      <td>0.000253</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>285</td>
+      <td>0.626374</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000111</td>
+      <td>0.000338</td>
+      <td>18.889778</td>
+      <td>23.384222</td>
+      <td>125.670222</td>
+      <td>1125.931111</td>
+      <td>0.104050</td>
+      <td>0.165379</td>
+      <td>0.192319</td>
+      <td>0.103460</td>
+      <td>0.196902</td>
+      <td>0.063262</td>
+      <td>0.702904</td>
+      <td>1.154429</td>
+      <td>5.013578</td>
+      <td>86.015111</td>
+      <td>0.006799</td>
+      <td>0.033373</td>
+      <td>0.046453</td>
+      <td>0.016062</td>
+      <td>0.020123</td>
+      <td>0.003967</td>
+      <td>23.516000</td>
+      <td>31.165111</td>
+      <td>157.855556</td>
+      <td>1719.700000</td>
+      <td>0.149993</td>
+      <td>0.407418</td>
+      <td>0.524851</td>
+      <td>0.207800</td>
+      <td>0.329258</td>
+      <td>0.092574</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>KS Decile Report</h2>
+<div class='section'><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>DECILE</th>
+      <th>N</th>
+      <th>POS</th>
+      <th>NEG</th>
+      <th>CUM_POS</th>
+      <th>CUM_NEG</th>
+      <th>TPR</th>
+      <th>FPR</th>
+      <th>KS</th>
+      <th>P_MIN</th>
+      <th>P_MAX</th>
+      <th>P_MEAN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>12</td>
+      <td>12</td>
+      <td>0</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0.166667</td>
+      <td>0.000000</td>
+      <td>0.166667</td>
+      <td>0.999742</td>
+      <td>0.999918</td>
+      <td>0.999829</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>11</td>
+      <td>11</td>
+      <td>0</td>
+      <td>23</td>
+      <td>0</td>
+      <td>0.319444</td>
+      <td>0.000000</td>
+      <td>0.319444</td>
+      <td>0.999542</td>
+      <td>0.999738</td>
+      <td>0.999638</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>11</td>
+      <td>11</td>
+      <td>0</td>
+      <td>34</td>
+      <td>0</td>
+      <td>0.472222</td>
+      <td>0.000000</td>
+      <td>0.472222</td>
+      <td>0.999220</td>
+      <td>0.999531</td>
+      <td>0.999410</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>12</td>
+      <td>12</td>
+      <td>0</td>
+      <td>46</td>
+      <td>0</td>
+      <td>0.638889</td>
+      <td>0.000000</td>
+      <td>0.638889</td>
+      <td>0.997166</td>
+      <td>0.999181</td>
+      <td>0.998358</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>11</td>
+      <td>11</td>
+      <td>0</td>
+      <td>57</td>
+      <td>0</td>
+      <td>0.791667</td>
+      <td>0.000000</td>
+      <td>0.791667</td>
+      <td>0.991201</td>
+      <td>0.996992</td>
+      <td>0.994368</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>11</td>
+      <td>8</td>
+      <td>3</td>
+      <td>65</td>
+      <td>3</td>
+      <td>0.902778</td>
+      <td>0.071429</td>
+      <td>0.831349</td>
+      <td>0.935721</td>
+      <td>0.989780</td>
+      <td>0.966291</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>12</td>
+      <td>7</td>
+      <td>5</td>
+      <td>72</td>
+      <td>8</td>
+      <td>1.000000</td>
+      <td>0.190476</td>
+      <td>0.809524</td>
+      <td>0.009628</td>
+      <td>0.871602</td>
+      <td>0.491120</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>11</td>
+      <td>0</td>
+      <td>11</td>
+      <td>72</td>
+      <td>19</td>
+      <td>1.000000</td>
+      <td>0.452381</td>
+      <td>0.547619</td>
+      <td>0.000657</td>
+      <td>0.008600</td>
+      <td>0.003071</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>11</td>
+      <td>0</td>
+      <td>11</td>
+      <td>72</td>
+      <td>30</td>
+      <td>1.000000</td>
+      <td>0.714286</td>
+      <td>0.285714</td>
+      <td>0.000368</td>
+      <td>0.000633</td>
+      <td>0.000481</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>12</td>
+      <td>0</td>
+      <td>12</td>
+      <td>72</td>
+      <td>42</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>0.000124</td>
+      <td>0.000358</td>
+      <td>0.000278</td>
+    </tr>
+  </tbody>
+</table></div>
+<h2>ROC Curve</h2>
+<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="1fdf2b28-3185-436c-9de5-a680c6c81a23" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("1fdf2b28-3185-436c-9de5-a680c6c81a23")) {                    Plotly.newPlot(                        "1fdf2b28-3185-436c-9de5-a680c6c81a23",                        [{"mode":"lines","name":"ROC","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABiGYRiGYag\u002fGIZhGIZhqD+SJEmSJEmyP5IkSZIkSbI\u002fGIZhGIZhuD8YhmEYhmG4PwzDMAzDMOw\u002fbtu2bdu27T8AAAAAAADwPw=="},"y":{"dtype":"f8","bdata":"AAAAAAAAAAAcx3Ecx3GMP8dxHMdxHMc\u002fq6qqqqqqyj8AAAAAAADsPwAAAAAAAOw\u002fOY7jOI7j7D85juM4juPsP3Icx3Ecx+0\u002fchzHcRzH7T8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPw=="},"type":"scatter"},{"line":{"dash":"dash"},"mode":"lines","name":"Random","x":[0,1],"y":[0,1],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"ROC Curve"},"xaxis":{"title":{"text":"FPR"}},"yaxis":{"title":{"text":"TPR"}}},                        {"responsive": true}                    )                };            </script>        </div></div>
+<h2>DET Curve</h2>
+<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="91bb59eb-e336-466e-bfff-41c955b244df" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("91bb59eb-e336-466e-bfff-41c955b244df")) {                    Plotly.newPlot(                        "91bb59eb-e336-466e-bfff-41c955b244df",                        [{"mode":"lines","name":"DET","x":{"dtype":"f8","bdata":"GIZhGIZhuD8YhmEYhmG4PxiGYRiGYbg\u002fGIZhGIZhuD8YhmEYhmG4PxiGYRiGYbg\u002fkiRJkiRJsj+SJEmSJEmyP5IkSZIkSbI\u002fGIZhGIZhqD8YhmEYhmGoPxiGYRiGYag\u002fGIZhGIZhmD8AAAAAAAAAAA=="},"y":{"dtype":"f8","bdata":"AAAAAAAAAAAcx3Ecx3GMPxzHcRzHcZw\u002fVVVVVVVVpT8cx3Ecx3GsP3Icx3Ecx7E\u002fchzHcRzHsT9VVVVVVVW1PzmO4ziO47g\u002fOY7jOI7juD8cx3Ecx3G8PwAAAAAAAMA\u002fAAAAAAAAwD8AAAAAAADAPw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"DET Curve"},"xaxis":{"title":{"text":"FPR"}},"yaxis":{"title":{"text":"FNR"}}},                        {"responsive": true}                    )                };            </script>        </div></div>
+<h2>Cumulative Gain Plot</h2>
+<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="db07c3af-daf3-4237-95ea-a4032c78c0a2" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("db07c3af-daf3-4237-95ea-a4032c78c0a2")) {                    Plotly.newPlot(                        "db07c3af-daf3-4237-95ea-a4032c78c0a2",                        [{"mode":"lines","name":"Model","x":{"dtype":"f8","bdata":"cB\u002fBfQT3gT9wH8F9BPeRPyivobyG8po\u002fcB\u002fBfQT3oT9MZzGdxXSmPyivobyG8qo\u002fBPcR3Edwrz9wH8F9BPexP15DeQ3lNbQ\u002fTGcxncV0tj86i+ksprO4PyivobyG8ro\u002fFtNZTGcxvT8E9xHcR3C\u002fP3kN5TWU18A\u002fcB\u002fBfQT3wT9nMZ3FdBbDP15DeQ3lNcQ\u002fVVVVVVVVxT9MZzGdxXTGP0N5DeU1lMc\u002fOovpLKazyD8xncV0FtPJPyivobyG8so\u002fH8F9BPcRzD8W01lMZzHNPw3lNZTXUM4\u002fBPcR3Edwzz9+BPcR3EfQP3kN5TWU19A\u002fdRbTWUxn0T9wH8F9BPfRP2wor6G8htI\u002fZzGdxXQW0z9jOovpLKbTP15DeQ3lNdQ\u002fWkxnMZ3F1D9VVVVVVVXVP1FeQ3kN5dU\u002fTGcxncV01j9IcB\u002fBfQTXP0N5DeU1lNc\u002fP4L7CO4j2D86i+ksprPYPzaU11BeQ9k\u002fMZ3FdBbT2T8tprOYzmLaPyivobyG8to\u002fJLiP4D6C2z8fwX0E9xHcPxvKayivodw\u002fFtNZTGcx3T8S3EdwH8HdPw3lNZTXUN4\u002fCe4juI\u002fg3j8E9xHcR3DfPwAAAAAAAOA\u002ffgT3EdxH4D\u002f8CO4juI\u002fgP3kN5TWU1+A\u002f9xHcR3Af4T91FtNZTGfhP\u002fMaymsor+E\u002fcB\u002fBfQT34T\u002fuI7iP4D7iP2wor6G8huI\u002f6iyms5jO4j9nMZ3FdBbjP+U1lNdQXuM\u002fYzqL6Sym4z\u002fhPoL7CO7jP15DeQ3lNeQ\u002f3EdwH8F95D9aTGcxncXkP9hQXkN5DeU\u002fVVVVVVVV5T\u002fTWUxnMZ3lP1FeQ3kN5eU\u002fz2I6i+ks5j9MZzGdxXTmP8prKK+hvOY\u002fSHAfwX0E5z\u002fGdBbTWUznP0N5DeU1lOc\u002fwX0E9xHc5z8\u002fgvsI7iPoP72G8hrKa+g\u002fOovpLKaz6D+4j+A+gvvoPzaU11BeQ+k\u002ftJjOYjqL6T8xncV0FtPpP6+hvIbyGuo\u002fLaazmM5i6j+rqqqqqqrqPyivobyG8uo\u002fprOYzmI66z8kuI\u002fgPoLrP6K8hvIayus\u002fH8F9BPcR7D+dxXQW01nsPxvKayivoew\u002fmc5iOovp7D8W01lMZzHtP5TXUF5Dee0\u002fEtxHcB\u002fB7T+Q4D6C+wjuPw3lNZTXUO4\u002fi+ksprOY7j8J7iO4j+DuP4fyGsprKO8\u002fBPcR3Edw7z+C+wjuI7jvPwAAAAAAAPA\u002f"},"y":{"dtype":"f8","bdata":"HMdxHMdxjD8cx3Ecx3GcP1VVVVVVVaU\u002fHMdxHMdxrD9yHMdxHMexP1VVVVVVVbU\u002fOY7jOI7juD8cx3Ecx3G8PwAAAAAAAMA\u002fchzHcRzHwT\u002fkOI7jOI7DP1VVVVVVVcU\u002fx3Ecx3Ecxz85juM4juPIP6uqqqqqqso\u002fHMdxHMdxzD+O4ziO4zjOPwAAAAAAANA\u002fOY7jOI7j0D9yHMdxHMfRP6uqqqqqqtI\u002f5DiO4ziO0z8cx3Ecx3HUP1VVVVVVVdU\u002fjuM4juM41j\u002fHcRzHcRzXPwAAAAAAANg\u002fOY7jOI7j2D9yHMdxHMfZP6uqqqqqqto\u002f5DiO4ziO2z8cx3Ecx3HcP1VVVVVVVd0\u002fjuM4juM43j\u002fHcRzHcRzfPwAAAAAAAOA\u002fHMdxHMdx4D85juM4juPgP1VVVVVVVeE\u002fchzHcRzH4T+O4ziO4zjiP6uqqqqqquI\u002fx3Ecx3Ec4z\u002fkOI7jOI7jPwAAAAAAAOQ\u002fHMdxHMdx5D85juM4juPkP1VVVVVVVeU\u002fchzHcRzH5T+O4ziO4zjmP6uqqqqqquY\u002fx3Ecx3Ec5z\u002fkOI7jOI7nPwAAAAAAAOg\u002fHMdxHMdx6D85juM4juPoP1VVVVVVVek\u002fchzHcRzH6T+O4ziO4zjqP6uqqqqqquo\u002fx3Ecx3Ec6z\u002fkOI7jOI7rPwAAAAAAAOw\u002fAAAAAAAA7D8AAAAAAADsPxzHcRzHcew\u002fOY7jOI7j7D85juM4juPsP1VVVVVVVe0\u002fchzHcRzH7T9yHMdxHMftP47jOI7jOO4\u002fq6qqqqqq7j\u002fHcRzHcRzvP+Q4juM4ju8\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002f"},"type":"scatter"},{"line":{"dash":"dash"},"mode":"lines","name":"Random","x":[0,1],"y":[0,1],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Cumulative Gain"},"xaxis":{"title":{"text":"Population"}},"yaxis":{"title":{"text":"Gain"}}},                        {"responsive": true}                    )                };            </script>        </div></div>
+<h2>Calibration Chart</h2>
+<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="e5ba8e71-c563-4dc2-a36c-e5a5402cf219" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e5ba8e71-c563-4dc2-a36c-e5a5402cf219")) {                    Plotly.newPlot(                        "e5ba8e71-c563-4dc2-a36c-e5a5402cf219",                        [{"mode":"lines+markers","name":"Model","x":{"dtype":"f8","bdata":"q6qqRqgxMj+66KIrAYE\u002fPxdddOHZJ2k\u002fq6qq+YBu3z\u002fRRRc92uvuPy+66ILd0e8\u002fq6qq0ozy7z8AAADgKfvvP6OLLvoH\u002fe8\u002fVVVVdZj+7z8="},"y":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAq6qqqqqq4j9GF1100UXnPwAAAAAAAPA\u002fAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA\u002fAAAAAAAA8D8="},"type":"scatter"},{"line":{"dash":"dash"},"mode":"lines","name":"Perfect","x":[0,1],"y":[0,1],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Calibration Chart"},"xaxis":{"title":{"text":"Pred prob"}},"yaxis":{"title":{"text":"Observed freq"}}},                        {"responsive": true}                    )                };            </script>        </div></div>
+<h2>Multicollinearity – VIF</h2>
+<div class='section'><pre class='code'>VIF skipped: No module named 'statsmodels'</pre></div>
+<h2>Multicollinearity – Correlation Heatmap</h2>
+<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="80dcf642-52f3-4d76-8687-7f26fc8ef369" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("80dcf642-52f3-4d76-8687-7f26fc8ef369")) {                    Plotly.newPlot(                        "80dcf642-52f3-4d76-8687-7f26fc8ef369",                        [{"coloraxis":"coloraxis","name":"0","x":["f0","f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","f13","f14","f15","f16","f17","f18","f19","f20","f21","f22","f23","f24","f25","f26","f27","f28","f29"],"y":["f0","f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12","f13","f14","f15","f16","f17","f18","f19","f20","f21","f22","f23","f24","f25","f26","f27","f28","f29"],"z":{"dtype":"f8","bdata":"AAAAAAAA8D+xz+gfT2vXP0ri3W9q8O8\u002f9HZW+nx27z\u002fffrXkBJC+P+z63jq32N0\u002fiSFfYkw65z+WP2wgc1DqP4ipIlIJILM\u002fW9bCqGIL17+77huS3lrlP0h9u2GTRoE\u002f06zEDxpt5T\u002f7D6dyuT3mP54mDvd78c+\u002fejK7Dp5Ozz9EgxNXxu\u002fQP6+SZyOyCdg\u002fjvAIKEUm0b8klzS91FuUP1MaZyr09e4\u002f9ESWueHI1j8smreUusruP32VodPe9+0\u002fMh8zREePvj93bxCiGS\u002fbP5WTlojbGeI\u002fQAa9AxAQ6T\u002fWu8M\u002fULG9P\u002fwdjab0KpY\u002fsc\u002foH09r1z8AAAAAAADwP3MHJ9Cucdg\u002f1jF8axnI1z++gkqFD4qkP1PzSlWu8dU\u002f+0ZcoGg+3D+j0SiQHNPaP7pVvxnD\u002f8I\u002f0pYfNcDlpb9jQbF+rHnXP1OF6Sm\u002fjto\u002fOeAU3eyE2T\u002fiXb\u002fLSHPVP3gk3zJzyrk\u002fJlVS9I760z9N2Ngh+lPOP6k5FdtdjMo\u002f9Z59cfBjV79tFmDhb5TDPz\u002fdXKn1VNo\u002fnGXtL48Y7T9udK\u002fpkNXbP8SecQ1jctk\u002f2fOKeL8JyT9A5Y36WVLZP5VLIK69KNo\u002fs6TFKio12z8VHzHdC6TGP4ItUrZK\u002fMY\u002fSuLdb2rw7z9zByfQrnHYPwAAAAAAAPA\u002fKXCpS7N27z9YNv1TF2LDP8rdfJiYc+A\u002fLB9VsXdU6D9zQrtBhyLrP1rUYflxCbo\u002f0mE1+5I\u002f1L8vDQHKftvlP8KRzmG6s5I\u002fvNRogDcY5j\u002fWJ2AgBbDmP\u002fzDTlvWf82\u002fOzCHwBJ30j91RsU5f\u002f7SP5y2rKwhydk\u002fT06ua1Ik0L9\u002fNvn+HmevP6n5jcgAAu8\u002fy9y4AJqB1z+lX\u002fnZpv7uP9zmeT4EE+4\u002fhohtOjXPwj\u002fcZJM1vdLdP0vLWlxGIuM\u002ft56f7WvU6T\u002fwE2vmYRXBP17UrZdHRbA\u002f9HZW+nx27z\u002fWMXxrGcjXPylwqUuzdu8\u002fAAAAAAAA8D\u002fbNFV447O7P4VZTeIjtNw\u002fk4JyMgKh5z8hcMlZdD3qP2nnToE+fLU\u002fZIH4PdpI1r\u002fhLSeeupfnPzJ5lh5n0p8\u002fI5jzADu35z+U4ht6VuzoPznPmgpwyMq\u002fqdV5kqgtzz9LqsGKDgrSPyveOAcow9c\u002f3RZGVmTAzL9+8\u002fm+foSZP+Xe3OuLze4\u002fehYJG7Jn1j\u002f3hgA\u002fE6zuP8XLIWyH7O4\u002fbufo\u002f7HQuD87z6HqPPPYP5uWsfIknuE\u002fInp\u002f8dEO6D+qochJPQ+3Pwky2TM8YmW\u002f33615ASQvj++gkqFD4qkP1g2\u002fVMXYsM\u002f2zRVeOOzuz8AAAAAAADwPxVxj5\u002ffUuU\u002fQzbtVjsQ3D8LiqqmjfDfP6BDoeLfCeE\u002fO\u002fD2LZ1o5T8u8euHgQrQP3a9ojXxuMg\u002fKifCHgFN0D9Eq\u002ffk83XHPy4XQ1zDXto\u002fRNEMOJUS1D8VHK5PtM7IP+0Df1Libt4\u002ff8v8NkHCrz+2d8gr5W3dPxQeRQx73sM\u002fC+Dq+ZMLsD8scDgyjqLGPyC\u002fB0BaF8I\u002fFucXRrib6j\u002fPn98REfHZP8AucVzXLtQ\u002fNTMENDWP3T+A\u002fpVCJ73RP24\u002fZtAkCOA\u002f7PreOrfY3T9T80pVrvHVP8rdfJiYc+A\u002fhVlN4iO03D8VcY+f31LlPwAAAAAAAPA\u002fAYti+ZVe6j\u002f5JjifZfnoP6\u002fi5+G8\u002fN8\u002fxlQaLj594T95Xj3CvTTeP8AZE6pPars\u002fuFNx5HKF4D9rE+EFysvaP+PCtYl1y8Y\u002f7nwgVE7v5z\u002fXHx\u002fJlf\u002fhP03FKqiGyOM\u002f2oWJd360pz9JhsPpzqrkP1BzwGtI798\u002f5Sh+QbDN0z9oQDJmGLfhP2Ay1MnLAt4\u002fMctiu+RM4z8Hl0+JI5TrP75osoh11ec\u002f57NmU60k6T9TdtkxniDZP5ccZes5i+Y\u002fiSFfYkw65z\u002f7RlygaD7cPywfVbF3VOg\u002fk4JyMgKh5z9DNu1WOxDcPwGLYvmVXuo\u002fAAAAAAAA8D9\u002feQDZkKPtPyfDya0bPNc\u002fH5q+yD6zxz+l13KlodfmP7PZcgfPdcg\u002f769rsKLO5z8exTdKut7lPww6\u002fKMhjLQ\u002fsaIlbaMn5T9v2AObanjlP8c6UPV0MuQ\u002f0l7jdiupkr+ErHn2YSrfP6LcjHJBCug\u002fLJvTLCSb2j\u002fWkGDbLz3pP3XzL6Vj3uc\u002fiqNanThv2j+HNhclzAnoPxIv4uPzwus\u002feIHaSKAX7D8lXN16mKrSP\u002fJP6sXefd4\u002flj9sIHNQ6j+j0SiQHNPaP3NCu0GHIus\u002fIXDJWXQ96j8LiqqmjfDfP\u002fkmOJ9l+eg\u002ff3kA2ZCj7T8AAAAAAADwP\u002fRboAMDc9Y\u002fMN8WC3kmtj96rw0SAvfmP5a13g04zsg\u002fdbO9xsF45z9EkUgYpYflP0KS4RFQmrU\u002fXq3+bF5l4D\u002fzmc\u002fSZDLcP+v28rJIMOQ\u002f1k8xdPXJqr82PXdo9w7XP+XgQtJ7oeo\u002f76Iuw9bv2D95tFQtSUTrP4ZPTp1H9ek\u002f6YuI6IQc3D+H74DWYgXkPxt4JwpoiuY\u002fH4pV9YYm7T\u002fNjNBS8FTPP82sxs6nDtU\u002fiKkiUgkgsz+6Vb8Zw\u002f\u002fCP1rUYflxCbo\u002faedOgT58tT+gQ6Hi3wnhP6\u002fi5+G8\u002fN8\u002fJ8PJrRs81z\u002f0W6ADA3PWPwAAAAAAAPA\u002f\u002f2aH8dQD2z9PPp+\u002fTofRP5X3holUhss\u002f2jaIWo+b0D8H6wuawrbIP07k9CLsitg\u002fBhM852DR2T9LALo+tYvSP+941Ii0Uds\u002f8oic8q\u002fd1z9xnLX\u002fSgrWP9I32EXpg74\u002fEHVOvxPgwD+TqsYjofbBPwT1\u002fRUdwr8\u002fP3apOKSQ2z\u002flhzbrnrrWPw3+x+FsM9E\u002fRVcE6FjJ0z\u002flzyqjtt7iP1jfpFCImdY\u002fW9bCqGIL17\u002fSlh81wOWlv9JhNfuSP9S\u002fZIH4PdpI1r878PYtnWjlP8ZUGi4+feE\u002fH5q+yD6zxz8w3xYLeSa2P\u002f9mh\u002fHUA9s\u002fAAAAAAAA8D+B8YFNPuSyv5cp1TOb68E\u002fzoROAwy6pb9KRvmMrurBv0cRYvicY9s\u002fVjsEwTFO3D\u002f682O2vZ3QP1nrmDLxe9E\u002fOBwjDWI00T+LZZMF+9vmP3ijn0c7b9O\u002fuiFPMqsEpr\u002fEtpZnQ6rQv0vI8876utK\u002f\u002fE33EOiR4j\u002f3b3L7WerYP3mIp5LDDMo\u002feBxD97Zpuj91UOh0ifnQP3odUvOr8+c\u002fu+4bkt5a5T9jQbF+rHnXPy8NAcp+2+U\u002f4S0nnrqX5z8u8euHgQrQP3lePcK9NN4\u002fpddypaHX5j96rw0SAvfmP08+n79Oh9E\u002fgfGBTT7ksr8AAAAAAADwPzJUhf+ozck\u002f4As96YhV7z8z5NPWmH7uP7s53pDZi8Q\u002f73GsDEHl2D9+XdE56TPcP0LMHIRtEuI\u002fdH5q\u002fridmD9yyR\u002fTiJzOPx19t96++ec\u002ffO07\u002fmpm0T95Ydyt\u002fiLoP5b2QlnjB+o\u002ftkqOQouBxj9DW60GYNfUPwKFyDdBzt0\u002fVzqSdQBe4z8duSxVs76cP4zjtOtg4LI\u002fSH27YZNGgT9Thekpv47aP8KRzmG6s5I\u002fMnmWHmfSnz92vaI18bjIP8AZE6pPars\u002fs9lyB891yD+Wtd4NOM7IP5X3holUhss\u002flynVM5vrwT8yVIX\u002fqM3JPwAAAAAAAPA\u002fkPwSdGMSzT\u002fWbOuiAP26P7ZEadDUTt4\u002fJkd2sxV+0z9SNa\u002femh\u002fSP+5Da\u002fkalNg\u002fIwO4RwHQ2j+sX99ToQ7UP\u002fSC8iI\u002fWoC\u002fJqfiW4cq3D+5of1AFuBgPyw3QwlODX0\u002fY1iyHzkRsj\u002f7lie6tKmiv6ay4a8cDZI\u002foveuxVYvnT8fvSXdtTW6vz1KdR1dY6q\u002f06zEDxpt5T854BTd7ITZP7zUaIA3GOY\u002fI5jzADu35z8qJ8IeAU3QP7hTceRyheA\u002f769rsKLO5z91s73GwXjnP9o2iFqPm9A\u002fzoROAwy6pb\u002fgCz3piFXvP5D8EnRjEs0\u002fAAAAAAAA8D+TZ3\u002fPTGjuP1pNLgSHz8E\u002fclvJjNDu3D+14or4havePwM5AeLwbOI\u002fXfZ8R71Nqz\u002fzRTk3zEHSPyq5oJzAtOc\u002f0aD7GAfm0j9ziKapvmboP8tDa1XN1+k\u002fSVM8mznmxD\u002fZQJAn9mDYP4otG0ShUOA\u002f6jW1WGHW4z\u002fj\u002fBDN3q+aPxGRqIBccbs\u002f+w+ncrk95j\u002fiXb\u002fLSHPVP9YnYCAFsOY\u002flOIbelbs6D9Eq\u002ffk83XHP2sT4QXKy9o\u002fHsU3Srre5T9EkUgYpYflPwfrC5rCtsg\u002fSkb5jK7qwb8z5NPWmH7uP9Zs66IA\u002fbo\u002fk2d\u002fz0xo7j8AAAAAAADwPw+cFffHYqs\u002fFJGxDdIi1T8I5rrNEk\u002fZP2uB4SE0Ad4\u002fLdk39h0zsL9jg3PpMTTEP88+EDapE+g\u002fg\u002f18wv8Z0D\u002f\u002fxsAXaFroP6Jqfbo07Oo\u002fzw6gQZdewD8T\u002f9K8K7PTP7TPk2nDfd0\u002f6QdgcdqH4j+C0Uyoi6OSP17QaUMeGaI\u002fniYO93vxz794JN8yc8q5P\u002fzDTlvWf82\u002fOc+aCnDIyr8uF0Ncw17aP+PCtYl1y8Y\u002fDDr8oyGMtD9CkuERUJq1P07k9CLsitg\u002fRxFi+Jxj2z+7Od6Q2YvEP7ZEadDUTt4\u002fWk0uBIfPwT8PnBX3x2KrPwAAAAAAAPA\u002fn2eNg0wL1z9PnYmXa5rRPwHaF0SgieA\u002frNz4WxMc2j90oa4WbMjdP6i+UJ8Hcs2\u002fd5c5HxgYlb+2U9s0qcjLv8rFersJj8e\u002fqhZHUES41z\u002fdK3SvUpiYv7KqVt9arLS\u002fx01C2oScnL8iYQVNpFy0v7ihtkQ2JsQ\u002fejK7Dp5Ozz8mVVL0jvrTPzswh8ASd9I\u002fqdV5kqgtzz9E0Qw4lRLUP+58IFRO7+c\u002fsaIlbaMn5T9erf5sXmXgPwYTPOdg0dk\u002fVjsEwTFO3D\u002fvcawMQeXYPyZHdrMVftM\u002fclvJjNDu3D8UkbEN0iLVP59njYNMC9c\u002fAAAAAAAA8D+tHWVTLrbqP+oAWyPyzuc\u002fANjJLc0i0T8KmJjwAAfqP1xTBF5NJM8\u002fPh8Q3a4Tyj+BFaKaNJPTP2s8QaVEps4\u002fO+O\u002f3OWDzT+mOrGYNn7mP\u002ff+OuOsVOQ\u002fNXndkWYq4D8A8lOjin\u002fDP3msgJwvZeI\u002fRIMTV8bv0D9N2Ngh+lPOP3VGxTl\u002f\u002ftI\u002fS6rBig4K0j8VHK5PtM7IP9cfH8mV\u002f+E\u002fb9gDm2p45T\u002fzmc\u002fSZDLcP0sAuj61i9I\u002f+vNjtr2d0D9+XdE56TPcP1I1r96aH9I\u002fteKK+IWr3j8I5rrNEk\u002fZP0+diZdrmtE\u002frR1lUy626j8AAAAAAADwP4SQaHlkcuY\u002fJGZfulwqyT9i2jhzQlXkP1hfhB+XhNE\u002fK+3sQ16ixD9WCMQmSZLUPzvW+7+1b9I\u002f8h6XX6G3vT8+ueo4GtzhP4KBH2Mmi+Y\u002f75Ntxekj3T8O89WxB3SwPy3cM0TEJdo\u002fr5JnI7IJ2D+pORXbXYzKP5y2rKwhydk\u002fK944ByjD1z\u002ftA39S4m7eP03FKqiGyOM\u002fxzpQ9XQy5D\u002fr9vKySDDkP+941Ii0Uds\u002fWeuYMvF70T9CzByEbRLiP+5Da\u002fkalNg\u002fAzkB4vBs4j9rgeEhNAHePwHaF0SgieA\u002f6gBbI\u002fLO5z+EkGh5ZHLmPwAAAAAAAPA\u002fyMbL3oYgzT8TsCew2ePjP\u002fO0+vplA9c\u002fWii5vujmsT+QIG6Ics7YP82QsReI59Y\u002fh7b7d31h0T\u002fvfN6\u002f5ELZPzGEc4SD5ds\u002fAMUDylt84j+Hzgps0neqvzYOD0uk99A\u002fjvAIKEUm0b\u002f1nn1x8GNXv09OrmtSJNC\u002f3RZGVmTAzL9\u002fy\u002fw2QcKvP9qFiXd+tKc\u002f0l7jdiupkr\u002fWTzF09cmqv\u002fKInPKv3dc\u002fOBwjDWI00T90fmr+uJ2YPyMDuEcB0No\u002fXfZ8R71Nqz8t2Tf2HTOwv6zc+FsTHNo\u002fANjJLc0i0T8kZl+6XCrJP8jGy96GIM0\u002fAAAAAAAA8D\u002fF2rCeb4HSP8X3BEkIM9K\u002fsX3vfNT\u002fvb89tLruCtnQvxnFzqb\u002f5c6\u002f6FaZ01xKwr\u002fXdH6AZ9G9v6v6PM7Ny8S\u002fnrLKxDEAzb8HU+sLwwTIP6Por4lpFaW\u002fJJc0vdRblD9tFmDhb5TDP382+f4eZ68\u002ffvP5vn6EmT+2d8gr5W3dP0mGw+nOquQ\u002fhKx59mEq3z82PXdo9w7XP3Gctf9KCtY\u002fi2WTBfvb5j9yyR\u002fTiJzOP6xf31OhDtQ\u002f80U5N8xB0j9jg3PpMTTEP3ShrhZsyN0\u002fCpiY8AAH6j9i2jhzQlXkPxOwJ7DZ4+M\u002fxdqwnm+B0j8AAAAAAADwP2lD0VyzjZw\u002f4nnrizkFsD+IwMKsv8uzP+7qVxoopZ8\u002fIb+HXi531j\u002fgxIP5S83gP0Myfx\u002fsO9w\u002fB4v4wP6R1T9A2eYC3VCxP47i5i7mSOc\u002fUxpnKvT17j8\u002f3Vyp9VTaP6n5jcgAAu8\u002f5d7c64vN7j8UHkUMe97DP1BzwGtI798\u002fotyMckEK6D\u002fl4ELSe6HqP9I32EXpg74\u002feKOfRztv078dfbfevvnnP\u002fSC8iI\u002fWoC\u002fKrmgnMC05z\u002fPPhA2qRPoP6i+UJ8Hcs2\u002fXFMEXk0kzz9YX4Qfl4TRP\u002fO0+vplA9c\u002fxfcESQgz0r9pQ9Fcs42cPwAAAAAAAPA\u002fSiQokuoj2z+Ane264tLvP3\u002fbweE3WO8\u002fgIU0fvcWyz+aEnc54ILeP+sjC1KboOM\u002f0HxuhTcy6j9VMLY5z+LIPzQVtOn2org\u002f9ESWueHI1j+cZe0vjxjtP8vcuACagdc\u002fehYJG7Jn1j8L4Or5kwuwP+UofkGwzdM\u002fLJvTLCSb2j\u002fvoi7D1u\u002fYPxB1Tr8T4MA\u002fuiFPMqsEpr987Tv+ambRPyan4luHKtw\u002f0aD7GAfm0j+D\u002fXzC\u002fxnQP3eXOR8YGJW\u002fPh8Q3a4Tyj8r7exDXqLEP1ooub7o5rE\u002fsX3vfNT\u002fvb\u002fieeuLOQWwP0okKJLqI9s\u002fAAAAAAAA8D\u002fPcvNKVDTcP1wr7RkHTdk\u002f4fO\u002fGCcb1D8eEHT\u002fSl\u002fbP+XPS4qNHN0\u002fGeyf3rMw3T\u002fd9\u002fBzYqnUP7ggJ286S84\u002fLJq3lLrK7j9udK\u002fpkNXbP6Vf+dmm\u002fu4\u002f94YAPxOs7j8scDgyjqLGP2hAMmYYt+E\u002f1pBg2y896T95tFQtSUTrP5OqxiOh9sE\u002fxLaWZ0Oq0L95Ydyt\u002fiLoP7mh\u002fUAW4GA\u002fc4imqb5m6D\u002f\u002fxsAXaFroP7ZT2zSpyMu\u002fgRWimjST0z9WCMQmSZLUP5Agbohyztg\u002fPbS67grZ0L+IwMKsv8uzP4Cd7bri0u8\u002fz3LzSlQ03D8AAAAAAADwP4Qi\u002fU42OO8\u002fF3pWuo82zT+HhklK7DPhP5hCtQENIuU\u002fBeQDYyLw6j8cJOa+PwzLP4DT2BKax8I\u002ffZWh09737T\u002fEnnENY3LZP9zmeT4EE+4\u002fxcshbIfs7j8gvwdAWhfCP2Ay1MnLAt4\u002fdfMvpWPe5z+GT06dR\u002fXpPwT1\u002fRUdwr8\u002fS8jzzvq60r+W9kJZ4wfqPyw3QwlODX0\u002fy0NrVc3X6T+ian26NOzqP8rFersJj8e\u002fazxBpUSmzj871vu\u002ftW\u002fSP82QsReI59Y\u002fGcXOpv\u002flzr\u002fu6lcaKKWfP3\u002fbweE3WO8\u002fXCvtGQdN2T+EIv1ONjjvPwAAAAAAAPA\u002fFFQC9o\u002fXxj8S7uKY5DrbP8yW4n4AjeI\u002fgjESq2en6D9oL3lE7mHDP8Uc4WY22q4\u002fMh8zREePvj\u002fZ84p4vwnJP4aIbTo1z8I\u002fbufo\u002f7HQuD8W5xdGuJvqPzHLYrvkTOM\u002fiqNanThv2j\u002fpi4johBzcPz92qTikkNs\u002f\u002fE33EOiR4j+2So5Ci4HGP2NYsh85EbI\u002fSVM8mznmxD\u002fPDqBBl17AP6oWR1BEuNc\u002fO+O\u002f3OWDzT\u002fyHpdfobe9P4e2+3d9YdE\u002f6FaZ01xKwr8hv4deLnfWP4CFNH73Fss\u002f4fO\u002fGCcb1D8Xela6jzbNPxRUAvaP18Y\u002fAAAAAAAA8D9xm8PVVifhPw0o0vJg9ts\u002fzXmukicr4T9Nv\u002fCdz7vfP7IAtMhmn+Q\u002fd28Qohkv2z9A5Y36WVLZP9xkkzW90t0\u002fO8+h6jzz2D\u002fPn98REfHZPweXT4kjlOs\u002fhzYXJcwJ6D+H74DWYgXkP+WHNuueutY\u002f929y+1nq2D9DW60GYNfUP\u002fuWJ7q0qaK\u002f2UCQJ\u002fZg2D8T\u002f9K8K7PTP90rdK9SmJi\u002fpjqxmDZ+5j8+ueo4GtzhP+983r\u002fkQtk\u002f13R+gGfRvb\u002fgxIP5S83gP5oSdznggt4\u002fHhB0\u002f0pf2z+HhklK7DPhPxLu4pjkOts\u002fcZvD1VYn4T8AAAAAAADwPwga6Q47L+w\u002fUTqmKWiT6D\u002fC8ZTCvezgPw5y5MNsdOk\u002flZOWiNsZ4j+VSyCuvSjaP0vLWlxGIuM\u002fm5ax8iSe4T\u002fALnFc1y7UP75osoh11ec\u002fEi\u002fi4\u002fPC6z8beCcKaIrmPw3+x+FsM9E\u002feYinksMMyj8Chcg3Qc7dP6ay4a8cDZI\u002fii0bRKFQ4D+0z5Npw33dP7KqVt9arLS\u002f9\u002f4646xU5D+CgR9jJovmPzGEc4SD5ds\u002fq\u002fo8zs3LxL9DMn8f7DvcP+sjC1KboOM\u002f5c9Lio0c3T+YQrUBDSLlP8yW4n4AjeI\u002fDSjS8mD22z8IGukOOy\u002fsPwAAAAAAAPA\u002f7ZIiV+1i6j+yglgzqfHbP0RW6Y0wrOQ\u002fQAa9AxAQ6T+zpMUqKjXbP7een+1r1Ok\u002fInp\u002f8dEO6D81MwQ0NY\u002fdP+ezZlOtJOk\u002feIHaSKAX7D8filX1hibtP0VXBOhYydM\u002feBxD97Zpuj9XOpJ1AF7jP6L3rsVWL50\u002f6jW1WGHW4z\u002fpB2Bx2ofiP8dNQtqEnJy\u002fNXndkWYq4D\u002fvk23F6SPdPwDFA8pbfOI\u002fnrLKxDEAzb8Hi\u002fjA\u002fpHVP9B8boU3Muo\u002fGeyf3rMw3T8F5ANjIvDqP4IxEqtnp+g\u002fzXmukicr4T9ROqYpaJPoP+2SIlftYuo\u002fAAAAAAAA8D+Xo8TrECjYP1SBwjIKgN8\u002f1rvDP1CxvT8VHzHdC6TGP\u002fATa+ZhFcE\u002fqqHIST0Ptz+A\u002fpVCJ73RP1N22TGeINk\u002fJVzdepiq0j\u002fNjNBS8FTPP+XPKqO23uI\u002fdVDodIn50D8duSxVs76cPx+9Jd21Nbq\u002f4\u002fwQzd6vmj+C0Uyoi6OSPyJhBU2kXLS\u002fAPJTo4p\u002fwz8O89WxB3SwP4fOCmzSd6q\u002fB1PrC8MEyD9A2eYC3VCxP1UwtjnP4sg\u002f3ffwc2Kp1D8cJOa+PwzLP2gveUTuYcM\u002fTb\u002fwnc+73z\u002fC8ZTCvezgP7KCWDOp8ds\u002fl6PE6xAo2D8AAAAAAADwP8DmxjCDc98\u002f\u002fB2NpvQqlj+CLVK2SvzGP17UrZdHRbA\u002fCTLZMzxiZb9uP2bQJAjgP5ccZes5i+Y\u002f8k\u002fqxd593j\u002fNrMbOpw7VP1jfpFCImdY\u002feh1S86vz5z+M47TrYOCyPz1KdR1dY6q\u002fEZGogFxxuz9e0GlDHhmiP7ihtkQ2JsQ\u002feayAnC9l4j8t3DNExCXaPzYOD0uk99A\u002fo+iviWkVpb+O4uYu5kjnPzQVtOn2org\u002fuCAnbzpLzj+A09gSmsfCP8Uc4WY22q4\u002fsgC0yGaf5D8OcuTDbHTpP0RW6Y0wrOQ\u002fVIHCMgqA3z\u002fA5sYwg3PfPwAAAAAAAPA\u002f","shape":"30, 30"},"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"x: %{x}\u003cbr\u003ey: %{y}\u003cbr\u003ecolor: %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"scaleanchor":"y","constrain":"domain"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","constrain":"domain"},"coloraxis":{"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"title":{"text":"Correlation Heatmap (Numeric Features)"}},                        {"responsive": true}                    )                };            </script>        </div></div>
+<h2>Phik Correlation Analysis</h2>
+<div class='section'><pre class='code'>phik not installed; skipped. (pip install phik)</pre></div>
+
+</body>
+</html>
