@@ -2,26 +2,250 @@
 <html>
 <head>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>04 – Drift & Data Quality</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 24px; }
-    h1 { margin-bottom: 8px; }
-    h2 { margin-top: 22px; }
-    .section { margin: 14px 0; }
-    .code { background: #f6f6f6; padding: 10px; border-radius: 8px; overflow-x: auto; }
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ddd; padding: 8px; font-size: 12px; }
-    th { background: #f2f2f2; }
+    :root {
+      --bg: #ffffff;
+      --fg: #121212;
+      --muted: #666;
+      --border: #e6e6e6;
+      --card: #fafafa;
+      --shadow: 0 2px 10px rgba(0,0,0,0.06);
+
+      --ran: #16a34a;
+      --skipped: #64748b;
+      --failed: #dc2626;
+      --warn: #f59e0b;
+      --info: #2563eb;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    header {
+      padding: 18px 22px 0 22px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin: 0 0 10px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 18px;
+      padding: 18px 22px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 12px;
+      align-self: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      box-shadow: var(--shadow);
+      height: fit-content;
+    }
+
+    .sidebar-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .toc {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: var(--fg);
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .summary h2 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+
+    .summary-table td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    .report-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 14px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .section-body {
+      font-size: 13px;
+    }
+
+    .code {
+      background: #f6f6f6;
+      padding: 12px;
+      border-radius: 10px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-size: 12px;
+      vertical-align: top;
+    }
+    th {
+      background: #f2f2f2;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: white;
+      margin-left: 6px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+    .badge.ran { background: var(--ran); }
+    .badge.skipped { background: var(--skipped); }
+    .badge.failed { background: var(--failed); }
+    .badge.warn { background: var(--warn); color: #111; }
+    .badge.info { background: var(--info); }
+
+    details.collapsible {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 10px;
+      background: var(--card);
+      margin-top: 10px;
+    }
+    details.collapsible summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .collapsible-body {
+      margin-top: 10px;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: relative;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>04 – Drift & Data Quality</h1>
-  <h2>Data Integrity – Summary</h2>
-<div class='section'><pre class='code'>Rows: 114
+  <header>
+    <h1>04 – Drift & Data Quality</h1>
+    <p class="subtitle">Generated by ModelXAI Lite • Static HTML report</p>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Contents</div>
+      <ul class="toc">
+        <li><a href='#data-integrity-–-summary-1'>Data Integrity – Summary</a> <span class='badge info'>INFO</span></li><li><a href='#missingness-(top-50)-2'>Missingness (Top 50)</a> <span class='badge info'>INFO</span></li><li><a href='#outlier-rates-(|z|>4)-3'>Outlier Rates (|z|>4)</a> <span class='badge info'>INFO</span></li><li><a href='#psi-drift-table-(top-200)-4'>PSI Drift Table (Top 200)</a> <span class='badge info'>INFO</span></li><li><a href='#psi-drift-plot-5'>PSI Drift Plot</a> <span class='badge info'>INFO</span></li><li><a href='#concept-drift-(note)-6'>Concept Drift (Note)</a> <span class='badge info'>INFO</span></li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      
+      <section class="report-section" id="data-integrity-–-summary-1">
+  <div class="section-header">
+    <h2>Data Integrity – Summary</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: Explain what this section shows in practical terms. How it helps: supports decision-making, debugging, or governance. What to watch for: unexpected patterns, instability, or mismatch vs domain knowledge.</div></div><pre class='code'>Rows: 114
 Duplicate rows: 0
-Numeric features: 30</pre></div>
-<h2>Missingness (Top 50)</h2>
-<div class='section'><table border="1" class="dataframe">
+Numeric features: 30</pre>
+  </div>
+</section><section class="report-section" id="missingness-(top-50)-2">
+  <div class="section-header">
+    <h2>Missingness (Top 50)</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: Track missingness changes. How it helps: sudden missing spikes often indicate pipeline breaks or schema changes.</div></div><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>feature</th>
@@ -150,9 +374,15 @@ Numeric features: 30</pre></div>
       <td>0.000000</td>
     </tr>
   </tbody>
-</table></div>
-<h2>Outlier Rates (|z|>4)</h2>
-<div class='section'><table border="1" class="dataframe">
+</table>
+  </div>
+</section><section class="report-section" id="outlier-rates-(|z|>4)-3">
+  <div class="section-header">
+    <h2>Outlier Rates (|z|>4)</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: Explain what this section shows in practical terms. How it helps: supports decision-making, debugging, or governance. What to watch for: unexpected patterns, instability, or mismatch vs domain knowledge.</div></div><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>feature</th>
@@ -281,9 +511,15 @@ Numeric features: 30</pre></div>
       <td>0.000000</td>
     </tr>
   </tbody>
-</table></div>
-<h2>PSI Drift Table (Top 200)</h2>
-<div class='section'><table border="1" class="dataframe">
+</table>
+  </div>
+</section><section class="report-section" id="psi-drift-table-(top-200)-4">
+  <div class="section-header">
+    <h2>PSI Drift Table (Top 200)</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: PSI measures distribution shift between reference (train) and current (test/production). How it helps: detects drift that can degrade model performance. What to watch for: features with high PSI—investigate upstream changes.</div></div><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>feature</th>
@@ -412,13 +648,28 @@ Numeric features: 30</pre></div>
       <td>0.028095</td>
     </tr>
   </tbody>
-</table></div>
-<h2>PSI Drift Plot</h2>
-<div class='section'><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="d4ea3421-f9f2-492e-bcb6-17016f86b2a9" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("d4ea3421-f9f2-492e-bcb6-17016f86b2a9")) {                    Plotly.newPlot(                        "d4ea3421-f9f2-492e-bcb6-17016f86b2a9",                        [{"hovertemplate":"feature=%{x}\u003cbr\u003epsi=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"textposition":"auto","x":["f27","f11","f19","f18","f8","f24","f26","f21","f9","f16","f23","f28","f1","f17","f5"],"xaxis":"x","y":{"dtype":"f8","bdata":"I2VbyspTyz9fHB7qYGnFP849G7NPW8U\u002fKC7xqhUKwT9XmBlQ5hfAP7DWkKrdDcA\u002fgucuTviJvz8blKJ5QK++P3QTqRoBhL4\u002f6JSGZ24NvT\u002fwwQ56VXu5P6zlz+5Uarg\u002fQGgiERSFtj+zc+y9zEK2PwMYbzQ2l7U\u002f"},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"feature"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"psi"}},"legend":{"tracegroupgap":0},"title":{"text":"Top 15 Features by PSI (Higher = More Drift)"},"barmode":"relative"},                        {"responsive": true}                    )                };            </script>        </div></div>
-<h2>Concept Drift (Note)</h2>
-<div class='section'><pre class='code'>Concept drift is P(Y|X) changing over time. This lite version provides PSI/data drift + integrity checks.
-Add DeepChecks integration later for full concept drift, stability, leakage, and train-vs-val diagnostics.</pre></div>
-
+</table>
+  </div>
+</section><section class="report-section" id="psi-drift-plot-5">
+  <div class="section-header">
+    <h2>PSI Drift Plot</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: PSI measures distribution shift between reference (train) and current (test/production). How it helps: detects drift that can degrade model performance. What to watch for: features with high PSI—investigate upstream changes.</div></div><div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>                <div id="828349cf-9760-4cc5-9bec-42dd6c2f1ae8" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("828349cf-9760-4cc5-9bec-42dd6c2f1ae8")) {                    Plotly.newPlot(                        "828349cf-9760-4cc5-9bec-42dd6c2f1ae8",                        [{"hovertemplate":"feature=%{x}\u003cbr\u003epsi=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"textposition":"auto","x":["f27","f11","f19","f18","f8","f24","f26","f21","f9","f16","f23","f28","f1","f17","f5"],"xaxis":"x","y":{"dtype":"f8","bdata":"I2VbyspTyz9fHB7qYGnFP849G7NPW8U\u002fKC7xqhUKwT9XmBlQ5hfAP7DWkKrdDcA\u002fgucuTviJvz8blKJ5QK++P3QTqRoBhL4\u002f6JSGZ24NvT\u002fwwQ56VXu5P6zlz+5Uarg\u002fQGgiERSFtj+zc+y9zEK2PwMYbzQ2l7U\u002f"},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"feature"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"psi"}},"legend":{"tracegroupgap":0},"title":{"text":"Top 15 Features by PSI (Higher = More Drift)"},"barmode":"relative"},                        {"responsive": true}                    )                };            </script>        </div>
+  </div>
+</section><section class="report-section" id="concept-drift-(note)-6">
+  <div class="section-header">
+    <h2>Concept Drift (Note)</h2>
+    <div class="section-badges"><span class='badge info'>INFO</span></div>
+  </div>
+  <div class="section-body">
+    <div data-purpose-box="1" style="margin:8px 0 12px 0; padding:10px 12px; background:#f7f7f7; border:1px solid #e6e6e6; border-radius:12px;"><div style="font-weight:800; margin-bottom:4px;">What this section does</div><div style="color:#555; font-size:13px; line-height:1.45;">Purpose: Identify which features changed and by how much. How it helps: points to root-cause signals and monitoring priorities.</div></div><pre class='code'>Concept drift is P(Y|X) changing over time. This lite version provides PSI/data drift + integrity checks.
+Add DeepChecks integration later for full concept drift, stability, leakage, and train-vs-val diagnostics.</pre>
+  </div>
+</section>
+    </main>
+  </div>
 </body>
 </html>

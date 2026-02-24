@@ -89,38 +89,10 @@ class modelxLiteProject:
                     report_on=report_on,
                     X_train=X_train,
                     y_train=y_train,
+                    y_proba_train=(self.model.predict_proba(to_df(X_train, feature_names=self.feature_names)) if (report_on in ("train","both") and X_train is not None and y_train is not None and hasattr(self.model, "predict_proba")) else None),
                     X_train_raw=X_train_raw,
                     X_test_raw=X_test_raw
                 )
-
-                # If user requested TRAIN distribution inside report #1, append it in correct place:
-                # They want: Distribution (TEST/TRAIN if chosen) as the FIRST section.
-                # Since build_report1_classification currently adds TEST distribution only,
-                # we rebuild the first section here if train is needed.
-                if report_on in ("train", "both") and X_train is not None and y_train is not None and y_proba is not None:
-                    Xtr = to_df(X_train, feature_names=self.feature_names)
-                    ytr = np.asarray(y_train).reshape(-1)
-                    p_tr = self.model.predict_proba(Xtr)[:, 1]
-
-                    bin_label = "Decile" if self.cfg.bins == 10 else "Percentile" if self.cfg.bins == 100 else f"Bin({self.cfg.bins})"
-                    train_bins = bin_table_binary(ytr, p_tr, X_raw=X_train_raw, bins=self.cfg.bins).rename(columns={"BIN": bin_label.upper()})
-
-                    # Inject TRAIN table after TEST table by rewriting HTML file
-                    html = path1.read_text(encoding="utf-8")
-                    marker = f"<h2>{bin_label} Distribution Report (TEST)</h2>"
-                    insert = f"<h2>{bin_label} Distribution Report (TRAIN)</h2>\n<div class='section'>{df_to_html_table(train_bins)}</div>\n"
-
-                    # insert after the TEST section block
-                    # safest: insert after the closing div of TEST block (first occurrence)
-                    idx = html.find(marker)
-                    if idx != -1:
-                        # find end of the first section div after marker
-                        end_div = html.find("</div>", idx)
-                        if end_div != -1:
-                            end_div = html.find("</div>", end_div + 1)  # move to the outer section end
-                        if end_div != -1:
-                            html = html[:end_div+6] + "\n" + insert + html[end_div+6:]
-                            path1.write_text(html, encoding="utf-8")
 
                 saved["01_model_performance"] = path1
             else:
@@ -139,11 +111,13 @@ class modelxLiteProject:
                 cfg=self.cfg,
                 model=self.model,
                 X_test=Xte,
+                y_test=y_test, 
                 feature_names=self.feature_names,
                 shap_local_index=shap_local_index,
                 pdp_features=pdp_features
             )
             saved["02_interpretability"] = path2
+
 
         # 3) Counterfactuals
         if 3 in selected:
